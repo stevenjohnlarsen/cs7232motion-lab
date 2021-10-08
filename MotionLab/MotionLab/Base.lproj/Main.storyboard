@@ -29,8 +29,35 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOa-zr-r37">
+                                <rect key="frame" x="20" y="464" width="11" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAf-M9-BB2">
                                 <rect key="frame" x="365" y="339" width="29" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nTr-IV-7xJ">
+                                <rect key="frame" x="184" y="293" width="46" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yesterday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SsJ-Be-QgV">
+                                <rect key="frame" x="169" y="429" width="76" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="g7S-wK-nYT">
+                                <rect key="frame" x="20" y="493" width="374" height="4"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eHK-wH-yqA">
+                                <rect key="frame" x="365" y="464" width="29" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -41,13 +68,25 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AAf-M9-BB2" secondAttribute="trailing" constant="20" id="1GP-Ma-S90"/>
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="39" id="2Lc-RU-w5j"/>
+                            <constraint firstItem="g7S-wK-nYT" firstAttribute="top" secondItem="SsJ-Be-QgV" secondAttribute="bottom" constant="43" id="2p7-pV-rFc"/>
                             <constraint firstItem="zPd-0g-Myl" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="3Ni-Fx-pjS"/>
+                            <constraint firstItem="mOa-zr-r37" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="3Q8-HP-R7w"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eHK-wH-yqA" secondAttribute="trailing" constant="20" id="7JL-nc-FF0"/>
                             <constraint firstItem="Pjz-rM-Utl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="9cQ-8a-Huu"/>
+                            <constraint firstItem="nTr-IV-7xJ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="9lR-KE-3qC"/>
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.57971" id="LED-Im-lce"/>
+                            <constraint firstItem="SsJ-Be-QgV" firstAttribute="top" secondItem="zPd-0g-Myl" secondAttribute="bottom" constant="57" id="LjA-zn-v0N"/>
                             <constraint firstItem="zPd-0g-Myl" firstAttribute="top" secondItem="Pjz-rM-Utl" secondAttribute="bottom" constant="8" symbolic="YES" id="MyD-Ta-WSc"/>
+                            <constraint firstItem="g7S-wK-nYT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Q1Y-Rm-wtC"/>
+                            <constraint firstItem="g7S-wK-nYT" firstAttribute="top" secondItem="mOa-zr-r37" secondAttribute="bottom" constant="8" symbolic="YES" id="YMU-GN-vta"/>
                             <constraint firstItem="zPd-0g-Myl" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.903382" id="YeI-s5-npQ"/>
                             <constraint firstItem="zPd-0g-Myl" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.00446429" id="YmS-iJ-Ypn"/>
                             <constraint firstItem="zPd-0g-Myl" firstAttribute="top" secondItem="AAf-M9-BB2" secondAttribute="bottom" constant="8" symbolic="YES" id="aNK-yY-qic"/>
+                            <constraint firstItem="g7S-wK-nYT" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.903382" id="ghM-NV-FMf"/>
+                            <constraint firstItem="g7S-wK-nYT" firstAttribute="top" secondItem="eHK-wH-yqA" secondAttribute="bottom" constant="8" symbolic="YES" id="p3m-pb-I4w"/>
+                            <constraint firstItem="g7S-wK-nYT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="s44-nk-XZk"/>
+                            <constraint firstItem="SsJ-Be-QgV" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="t8e-ag-isv"/>
+                            <constraint firstItem="zPd-0g-Myl" firstAttribute="top" secondItem="nTr-IV-7xJ" secondAttribute="bottom" constant="54" id="uJi-CD-fO7"/>
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="uoG-1v-ClC"/>
                             <constraint firstItem="zPd-0g-Myl" firstAttribute="top" secondItem="Kxz-Kc-q6o" secondAttribute="bottom" constant="113" id="xQR-A0-Pmt"/>
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.142857" id="yHt-fW-Na8"/>
@@ -57,6 +96,7 @@
                     <connections>
                         <outlet property="activityImage" destination="Kxz-Kc-q6o" id="65P-Q0-2Rd"/>
                         <outlet property="stepGoalLabel" destination="AAf-M9-BB2" id="mN7-4v-eZ7"/>
+                        <outlet property="stepGoalYesterday" destination="g7S-wK-nYT" id="5aD-rC-p9R"/>
                         <outlet property="stepProgress" destination="zPd-0g-Myl" id="Mg0-3H-sh4"/>
                     </connections>
                 </viewController>

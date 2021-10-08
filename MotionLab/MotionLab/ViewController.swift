@@ -30,7 +30,8 @@ class ViewController: UIViewController {
         
         //set up the UI elements
         self.stepGoalLabel.text = String(self.stepGoal)
-        self.updateProgress()
+        self.updateProgressToday()
+        self.updateProgressYesterday()
     }
     //MARK: Properties
     private var todayDaySteps:Int? = nil
@@ -49,6 +50,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var activityImage: UIImageView!
     @IBOutlet weak var stepProgress: UIProgressView!
     @IBOutlet weak var stepGoalLabel: UILabel!
+    @IBOutlet weak var stepGoalYesterday: UIProgressView!
     
     //MARK: Private Functions
     private func HandleTodaySteps(pedData:CMPedometerData?, error:Error?){
@@ -99,10 +101,16 @@ class ViewController: UIViewController {
         }
     }
     
-    private func updateProgress(){
+    private func updateProgressToday(){
         if let steps = self.todayDaySteps{
             let value =  Float(steps) / Float(self.stepGoal)
             self.stepProgress.setProgress(value, animated: false)
+        }
+    }
+    private func updateProgressYesterday(){
+        if let steps = self.yesterDayDaySteps{
+            let value =  Float(steps) / Float(self.stepGoal)
+            self.stepGoalYesterday.setProgress(value, animated: false)
         }
     }
 }
