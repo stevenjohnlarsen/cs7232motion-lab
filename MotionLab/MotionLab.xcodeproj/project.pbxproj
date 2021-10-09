@@ -15,6 +15,17 @@
 		B764B569270E70FD00726E15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B764B567270E70FD00726E15 /* LaunchScreen.storyboard */; };
 		B764B573270E728900726E15 /* MotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B764B572270E728900726E15 /* MotionModel.swift */; };
 		B764B575270E72B500726E15 /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B764B574270E72B500726E15 /* ActivityModel.swift */; };
+		FD57286927110C3900809AD7 /* BlockBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57286827110C3900809AD7 /* BlockBase.swift */; };
+		FD57286B2711116E00809AD7 /* TBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57286A2711116E00809AD7 /* TBlock.swift */; };
+		FD57286D271127B200809AD7 /* SBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57286C271127B200809AD7 /* SBlock.swift */; };
+		FD57286F2711431200809AD7 /* RSBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57286E2711431200809AD7 /* RSBlock.swift */; };
+		FD572872271144A400809AD7 /* LBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD572871271144A400809AD7 /* LBlock.swift */; };
+		FD572874271149B500809AD7 /* RLBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD572873271149B500809AD7 /* RLBlock.swift */; };
+		FD57287627114A7500809AD7 /* SqBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD57287527114A7500809AD7 /* SqBlock.swift */; };
+		FDFA288B270E7CB400D45C9F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFA288A270E7CB400D45C9F /* GameViewController.swift */; };
+		FDFA288D270E7E0300D45C9F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFA288C270E7E0300D45C9F /* GameScene.swift */; };
+		FDFA28912710B92700D45C9F /* BlockGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFA28902710B92700D45C9F /* BlockGenerator.swift */; };
+		FDFA28932710B94200D45C9F /* LineBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDFA28922710B94200D45C9F /* LineBlock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +39,17 @@
 		B764B56A270E70FD00726E15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B764B572270E728900726E15 /* MotionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionModel.swift; sourceTree = "<group>"; };
 		B764B574270E72B500726E15 /* ActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
+		FD57286827110C3900809AD7 /* BlockBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBase.swift; sourceTree = "<group>"; };
+		FD57286A2711116E00809AD7 /* TBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBlock.swift; sourceTree = "<group>"; };
+		FD57286C271127B200809AD7 /* SBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBlock.swift; sourceTree = "<group>"; };
+		FD57286E2711431200809AD7 /* RSBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSBlock.swift; sourceTree = "<group>"; };
+		FD572871271144A400809AD7 /* LBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBlock.swift; sourceTree = "<group>"; };
+		FD572873271149B500809AD7 /* RLBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLBlock.swift; sourceTree = "<group>"; };
+		FD57287527114A7500809AD7 /* SqBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqBlock.swift; sourceTree = "<group>"; };
+		FDFA288A270E7CB400D45C9F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		FDFA288C270E7E0300D45C9F /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		FDFA28902710B92700D45C9F /* BlockGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockGenerator.swift; sourceTree = "<group>"; };
+		FDFA28922710B94200D45C9F /* LineBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineBlock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +91,27 @@
 				B764B56A270E70FD00726E15 /* Info.plist */,
 				B764B572270E728900726E15 /* MotionModel.swift */,
 				B764B574270E72B500726E15 /* ActivityModel.swift */,
+				FDFA288A270E7CB400D45C9F /* GameViewController.swift */,
+				FDFA288C270E7E0300D45C9F /* GameScene.swift */,
+				FDFA28902710B92700D45C9F /* BlockGenerator.swift */,
+				FD5728702711440A00809AD7 /* Blocks */,
 			);
 			path = MotionLab;
+			sourceTree = "<group>";
+		};
+		FD5728702711440A00809AD7 /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				FD57286827110C3900809AD7 /* BlockBase.swift */,
+				FDFA28922710B94200D45C9F /* LineBlock.swift */,
+				FD57286A2711116E00809AD7 /* TBlock.swift */,
+				FD57286C271127B200809AD7 /* SBlock.swift */,
+				FD57286E2711431200809AD7 /* RSBlock.swift */,
+				FD572871271144A400809AD7 /* LBlock.swift */,
+				FD572873271149B500809AD7 /* RLBlock.swift */,
+				FD57287527114A7500809AD7 /* SqBlock.swift */,
+			);
+			path = Blocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,11 +184,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD57286927110C3900809AD7 /* BlockBase.swift in Sources */,
+				FD57286D271127B200809AD7 /* SBlock.swift in Sources */,
+				FDFA28932710B94200D45C9F /* LineBlock.swift in Sources */,
 				B764B575270E72B500726E15 /* ActivityModel.swift in Sources */,
+				FDFA28912710B92700D45C9F /* BlockGenerator.swift in Sources */,
 				B764B561270E70FD00726E15 /* ViewController.swift in Sources */,
 				B764B55D270E70FD00726E15 /* AppDelegate.swift in Sources */,
+				FD57287627114A7500809AD7 /* SqBlock.swift in Sources */,
 				B764B55F270E70FD00726E15 /* SceneDelegate.swift in Sources */,
+				FDFA288B270E7CB400D45C9F /* GameViewController.swift in Sources */,
+				FD57286B2711116E00809AD7 /* TBlock.swift in Sources */,
+				FD572874271149B500809AD7 /* RLBlock.swift in Sources */,
+				FDFA288D270E7E0300D45C9F /* GameScene.swift in Sources */,
 				B764B573270E728900726E15 /* MotionModel.swift in Sources */,
+				FD572872271144A400809AD7 /* LBlock.swift in Sources */,
+				FD57286F2711431200809AD7 /* RSBlock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,13 +347,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2U52JNW2M5;
+				DEVELOPMENT_TEAM = H6Q8KU2898;
 				INFOPLIST_FILE = MotionLab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Steven.MotionLab;
+				PRODUCT_BUNDLE_IDENTIFIER = Nick.MotionLab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -314,13 +366,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2U52JNW2M5;
+				DEVELOPMENT_TEAM = H6Q8KU2898;
 				INFOPLIST_FILE = MotionLab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Steven.MotionLab;
+				PRODUCT_BUNDLE_IDENTIFIER = Nick.MotionLab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
