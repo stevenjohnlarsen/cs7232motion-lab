@@ -14,6 +14,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var numBlockTypes = 1
     var lockedBlocks:[BlockBase] = []
+    var lost:Bool = false
     enum BlockTypes {
         case LINE_BLOCK
         case TBLOCK
@@ -24,9 +25,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case SQ_BLOCK
     }
 
-    //@IBOutlet weak var scoreLabel: UILabel!
-    
     var activePiece:BlockBase? = nil
+    var activePieceStartingPoint:CGPoint = CGPoint(x: 0.0,y: 0.0)
     
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
@@ -42,7 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // make gravity in the game als the simulator gravity\
         
         if let gravity = motionData?.gravity {
-            self.physicsWorld.gravity = CGVector(dx: CGFloat(0.0), dy: 0.0)
+            self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: -1.0)
         }
     }
     
@@ -87,9 +87,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addNewBlock(){
         
         let randy:BlockTypes = [
-//            BlockTypes.LINE_BLOCK
-//            BlockTypes.TBLOCK,
-//            BlockTypes.SBLOCK,
+            BlockTypes.LINE_BLOCK,
+            BlockTypes.TBLOCK,
+            BlockTypes.SBLOCK,
             BlockTypes.RSBLOCK
 //            ,BlockTypes.LBLOCK
         ].randomElement() as! GameScene.BlockTypes
@@ -114,6 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(block!.node)
         activePiece = block
+        activePieceStartingPoint = block!.node.position
     }
     
     func addSidesAndTop(){
@@ -178,9 +179,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             if o == bottom || found {
+                if activePieceStartingPoint == activePiece!.node.position {
+                    lost = true
+                }
                 t.physicsBody?.pinned = true
                 lockedBlocks.append(activePiece!)
-                addNewBlock()
+                if !self.lost {
+                    addNewBlock()
+                }
+                
                 return
             }
         }
