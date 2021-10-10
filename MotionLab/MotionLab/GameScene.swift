@@ -87,8 +87,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addNewBlock(){
         
         let randy:BlockTypes = [
-            BlockTypes.LINE_BLOCK
-//            ,BlockTypes.TBLOCK
+//            BlockTypes.LINE_BLOCK
+            BlockTypes.TBLOCK
 //            ,BlockTypes.SBLOCK
 //            ,BlockTypes.RSBLOCK
 //            ,BlockTypes.LBLOCK
