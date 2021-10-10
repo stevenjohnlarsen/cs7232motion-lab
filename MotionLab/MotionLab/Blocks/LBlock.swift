@@ -10,6 +10,7 @@ import SpriteKit
 
 class LBlock: BlockBase {
     
+    var rotationDisplace: Dictionary<Double, CGPoint>
     var node: SKShapeNode
     var screenSize: CGSize
     var angle: Double
@@ -17,6 +18,7 @@ class LBlock: BlockBase {
     init(screenSize: CGSize) {
         self.screenSize = screenSize
         self.angle = 0.0
+        self.rotationDisplace = [Double: CGPoint]()
                 
         node = SKShapeNode()
         

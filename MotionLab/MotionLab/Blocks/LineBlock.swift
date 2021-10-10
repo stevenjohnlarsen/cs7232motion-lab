@@ -13,11 +13,21 @@ class LineBlock : BlockBase {
     var node: SKShapeNode
     var screenSize:CGSize
     var angle:Double
+    var rotationDisplace: Dictionary<Double, CGPoint>
     
     init(screenSize:CGSize) {
         
         self.screenSize = screenSize
         self.angle = 0.0
+        self.rotationDisplace = [
+            0.5 : CGPoint(x:2.5,   y:-1.5),
+            1.0 : CGPoint(x:1.5,   y:2.5),
+            1.5 : CGPoint(x:-2.5,  y:1.5),
+            2.0 : CGPoint(x: -1.5, y: -2.5),
+            0.0 : CGPoint(x: -1.5, y: -2.5)
+            
+        ]
+        
         let blockWidth = CGSize(width: screenSize.width*0.1, height: screenSize.width*0.1)
         let path = CGMutablePath()
         

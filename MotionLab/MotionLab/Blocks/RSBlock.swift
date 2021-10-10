@@ -10,6 +10,7 @@ import SpriteKit
 
 class RSBlock: BlockBase {
     
+    var rotationDisplace: Dictionary<Double, CGPoint>
     var node: SKShapeNode
     var screenSize: CGSize
     var angle: Double
@@ -17,6 +18,7 @@ class RSBlock: BlockBase {
     init(screenSize: CGSize) {
         self.screenSize = screenSize
         self.angle = 0.0
+        self.rotationDisplace = [Double: CGPoint]()
                 
         node = SKShapeNode()
         

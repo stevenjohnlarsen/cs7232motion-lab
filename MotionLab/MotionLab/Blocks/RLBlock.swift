@@ -11,14 +11,16 @@ import Foundation
 import SpriteKit
 
 class RLBlock: BlockBase {
-    
+    var rotationDisplace: Dictionary<Double, CGPoint>
     var node: SKShapeNode
     var screenSize: CGSize
     var angle: Double
     
+    
     init(screenSize: CGSize) {
         self.screenSize = screenSize
         self.angle = 0.0
+        self.rotationDisplace = [Double: CGPoint]()
                 
         node = SKShapeNode()
         
