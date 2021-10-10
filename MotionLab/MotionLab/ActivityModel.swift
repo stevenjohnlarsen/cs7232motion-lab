@@ -53,4 +53,17 @@ class ActivityModel {
         let from = Date(timeInterval: -60*60*25, since: to)
         return (to,from)
     }
+    public func startActivityMonitoring(withHandler:@escaping CMMotionActivityHandler) -> Bool{        // is activity is available
+        if CMMotionActivityManager.isActivityAvailable(){
+    // update from this queue (should we use the MAIN queue here??.... )
+            DispatchQueue.main.async {
+                self.activityManager.startActivityUpdates(to: OperationQueue.main, withHandler: withHandler)
+            }
+            return true
+        }
+        else{
+            return false
+        }
+    }
+
 }
