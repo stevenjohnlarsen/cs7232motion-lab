@@ -52,6 +52,7 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
+**/xcuserdata/**
 
 ## Obj-C/Swift specific
 *.hmap
@@ -132,3 +133,7 @@ Training
 Blog
 About
 Loading complete
+
+
+**/xcuserdata/**
+	
