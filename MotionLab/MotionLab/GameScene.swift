@@ -42,7 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // make gravity in the game als the simulator gravity\
         
         if let gravity = motionData?.gravity {
-            self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: -0.25)
+            self.physicsWorld.gravity = CGVector(dx: CGFloat(0.0), dy: 0.0)
         }
     }
     
@@ -87,17 +87,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addNewBlock(){
         
         let randy:BlockTypes = [
-            BlockTypes.LINE_BLOCK,
-            BlockTypes.TBLOCK,
-            BlockTypes.SBLOCK,
-            BlockTypes.RSBLOCK,
-            BlockTypes.LBLOCK
+            BlockTypes.LINE_BLOCK
+//            ,BlockTypes.TBLOCK
+//            ,BlockTypes.SBLOCK
+//            ,BlockTypes.RSBLOCK
+//            ,BlockTypes.LBLOCK
         ].randomElement() as! GameScene.BlockTypes
         
         var block:BlockBase?
         switch randy {
         case BlockTypes.LINE_BLOCK:
-            block = LBlock(screenSize: size)
+            block = LineBlock(screenSize: size)
         case BlockTypes.TBLOCK:
             block = TBlock(screenSize: size)
         case BlockTypes.SBLOCK:
@@ -148,7 +148,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: =====Delegate Functions=====
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if var piece = activePiece {
-            piece.rotate()
+            DispatchQueue.main.async {
+                piece.rotate()
+            }
+            
         }
     }
     
