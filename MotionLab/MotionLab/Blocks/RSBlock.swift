@@ -18,7 +18,13 @@ class RSBlock: BlockBase {
     init(screenSize: CGSize) {
         self.screenSize = screenSize
         self.angle = 0.0
-        self.rotationDisplace = [Double: CGPoint]()
+        self.rotationDisplace = [
+            0.5: CGPoint(x: 2.5, y: 0.5),
+            1.0: CGPoint(x: -0.5, y: 2.5),
+            1.5: CGPoint(x: -2.5, y: -0.5),
+            2.0: CGPoint(x: 0.5, y: -2.5),
+            0.0: CGPoint(x: 0.5, y: -2.5)
+        ]
                 
         node = SKShapeNode()
         
@@ -44,6 +50,7 @@ class RSBlock: BlockBase {
         
         let randNumber = GameScene.random(min: CGFloat(0.1), max: CGFloat(0.9))
         node.position = CGPoint(x: screenSize.width * randNumber, y: screenSize.height * 0.75)
+
         node.physicsBody = SKPhysicsBody(polygonFrom: path)
         setPhysics()
         
