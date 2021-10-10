@@ -43,7 +43,7 @@ class LBlock: BlockBase {
         node = SKShapeNode(path: path)
         
         node.lineWidth = 1
-        node.fillColor = .blue
+        node.fillColor = .orange
         
         node.physicsBody = SKPhysicsBody(polygonFrom: path)
         let randNumber = GameScene.random(min: CGFloat(0.1), max: CGFloat(0.9))

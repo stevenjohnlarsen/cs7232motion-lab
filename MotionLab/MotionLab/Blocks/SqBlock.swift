@@ -42,7 +42,7 @@ class SqBlock: BlockBase {
         node = SKShapeNode(path: path)
         
         node.lineWidth = 1
-        node.fillColor = .blue
+        node.fillColor = .yellow
         
         let randNumber = GameScene.random(min: CGFloat(0.1), max: CGFloat(0.9))
         node.physicsBody = SKPhysicsBody(polygonFrom: path)
