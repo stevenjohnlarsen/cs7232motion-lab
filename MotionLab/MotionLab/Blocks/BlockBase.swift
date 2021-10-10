@@ -45,7 +45,7 @@ extension BlockBase {
         if angle == .pi*2 {
             angle = 0
         }
-        node.physicsBody?.node?.zRotation = angle
+        node.physicsBody?.node?.zRotation = CGFloat(angle)
     }
     
 }
