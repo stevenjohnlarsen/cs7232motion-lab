@@ -163,35 +163,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         
         var tetrisBlock:SKNode? = nil
-        var otherContact:SKNode? = nil
         if contact.bodyA.node == activePiece?.node {
             tetrisBlock = contact.bodyA.node
-            otherContact = contact.bodyB.node
         } else if contact.bodyB.node == activePiece?.node {
             tetrisBlock = contact.bodyB.node
-            otherContact = contact.bodyA.node
         }
         
-        if let t = tetrisBlock, let o = otherContact {
+        if let t = tetrisBlock {
             
-            var found = false
-            for n in lockedBlocks {
-                if n.node == o {
-                    found = true // the other contact was one of the locked pieces
-                }
-            }
-            
-            if o == bottom || found {
+            if let pBody = t.physicsBody {
                 if activePieceStartingPoint == activePiece!.node.position {
                     lost = true
                 }
-                t.physicsBody?.pinned = true
-                lockedBlocks.append(activePiece!)
-                if !self.lost {
+                print(pBody.velocity.dy > 0)
+                if pBody.velocity.dy >= 0.0 && !lost {
+                    pBody.pinned = true
                     addNewBlock()
                 }
-                
-                return
             }
         }
     }
