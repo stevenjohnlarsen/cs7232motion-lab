@@ -45,10 +45,9 @@ class RLBlock: BlockBase {
         node.lineWidth = 1
         node.fillColor = .blue
         
-//        let randNumber = GameScene.random(min: CGFloat(0.1), max: CGFloat(0.9))
-//        node.position = CGPoint(x: screenSize.width * randNumber, y: screenSize.height * 0.75)
-        node.position = CGPoint(x: screenSize.width/2, y: screenSize.height/2)
         node.physicsBody = SKPhysicsBody(polygonFrom: path)
+        let randNumber = GameScene.random(min: CGFloat(0.1), max: CGFloat(0.9))
+        node.position = CGPoint(x: screenSize.width * randNumber, y: screenSize.height * 0.75)
         
         setPhysics()
         
