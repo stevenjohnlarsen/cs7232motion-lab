@@ -19,6 +19,9 @@ protocol BlockBase {
     var node: SKShapeNode {
         get
     }
+    var rotationDisplace: Dictionary<Double, CGPoint> {
+        get
+    }
 }
 
 extension BlockBase {
@@ -41,11 +44,25 @@ extension BlockBase {
     }
     
     mutating func rotate() {
-        angle = angle + .pi/2
-        if angle == .pi*2 {
-            angle = 0
+        angle = angle + 0.5
+        let blockWidth = CGSize(width: screenSize.width*0.1, height: screenSize.width*0.1)
+        
+        
+        node.physicsBody?.node?.zRotation = .pi*angle
+        if angle == 2.0 {
+            angle = 0.0
         }
-        node.physicsBody?.node?.zRotation = CGFloat(angle)
+        if let delta = rotationDisplace[angle] {
+            translate(block: blockWidth,
+                      position: &node.position,
+                      x: delta.x,
+                      y: delta.y)
+        }
+    }
+    
+    private func translate(block:CGSize, position:inout CGPoint, x:CGFloat, y:CGFloat){
+        position.x = node.position.x + x*block.width
+        position.y = node.position.y + y*block.width
     }
     
 }

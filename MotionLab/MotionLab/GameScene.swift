@@ -14,6 +14,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var numBlockTypes = 1
     var lockedBlocks:[BlockBase] = []
+    var lost:Bool = false
     enum BlockTypes {
         case LINE_BLOCK
         case TBLOCK
@@ -24,9 +25,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case SQ_BLOCK
     }
 
-    //@IBOutlet weak var scoreLabel: UILabel!
-    
     var activePiece:BlockBase? = nil
+    var activePieceStartingPoint:CGPoint = CGPoint(x: 0.0,y: 0.0)
     
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
@@ -42,7 +42,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // make gravity in the game als the simulator gravity\
         
         if let gravity = motionData?.gravity {
-            self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: -0.25)
+            self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: -1.0)
+//            self.physicsWorld.gravity = CGVector(dx: CGFloat(0.0), dy: 0.0)
         }
     }
     
@@ -91,13 +92,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             BlockTypes.TBLOCK,
             BlockTypes.SBLOCK,
             BlockTypes.RSBLOCK,
-            BlockTypes.LBLOCK
+            BlockTypes.LBLOCK,
+            BlockTypes.RLBLOCK,
+            BlockTypes.SQ_BLOCK
         ].randomElement() as! GameScene.BlockTypes
         
         var block:BlockBase?
         switch randy {
         case BlockTypes.LINE_BLOCK:
-            block = LBlock(screenSize: size)
+            block = LineBlock(screenSize: size)
         case BlockTypes.TBLOCK:
             block = TBlock(screenSize: size)
         case BlockTypes.SBLOCK:
@@ -114,6 +117,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(block!.node)
         activePiece = block
+        activePieceStartingPoint = block!.node.position
     }
     
     func addSidesAndTop(){
@@ -148,7 +152,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: =====Delegate Functions=====
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if var piece = activePiece {
-            piece.rotate()
+            DispatchQueue.main.async {
+                piece.rotate()
+            }
+            
         }
     }
     
@@ -156,29 +163,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         
         var tetrisBlock:SKNode? = nil
-        var otherContact:SKNode? = nil
         if contact.bodyA.node == activePiece?.node {
             tetrisBlock = contact.bodyA.node
-            otherContact = contact.bodyB.node
         } else if contact.bodyB.node == activePiece?.node {
             tetrisBlock = contact.bodyB.node
-            otherContact = contact.bodyA.node
         }
         
-        if let t = tetrisBlock, let o = otherContact {
+        if let t = tetrisBlock {
             
-            var found = false
-            for n in lockedBlocks {
-                if n.node == o {
-                    found = true // the other contact was one of the locked pieces
+            if let pBody = t.physicsBody {
+                if activePieceStartingPoint == activePiece!.node.position {
+                    lost = true
                 }
-            }
-            
-            if o == bottom || found {
-                t.physicsBody?.pinned = true
-                lockedBlocks.append(activePiece!)
-                addNewBlock()
-                return
+                print(pBody.velocity.dy > 0)
+                if pBody.velocity.dy >= 0.0 && !lost {
+                    pBody.pinned = true
+                    addNewBlock()
+                }
             }
         }
     }
