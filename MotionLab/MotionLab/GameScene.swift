@@ -174,8 +174,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if let pBody = t.physicsBody {
                 if activePieceStartingPoint == activePiece!.node.position {
                     lost = true
+                    pBody.pinned = true
+                    tetrisBlock?.removeFromParent()
                 }
-                print(pBody.velocity.dy > 0)
+                print(pBody.velocity.dy)
                 if pBody.velocity.dy >= 0.0 && !lost {
                     pBody.pinned = true
                     addNewBlock()
