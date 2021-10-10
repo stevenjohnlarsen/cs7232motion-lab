@@ -43,6 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if let gravity = motionData?.gravity {
             self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: -1.0)
+//            self.physicsWorld.gravity = CGVector(dx: CGFloat(0.0), dy: 0.0)
         }
     }
     
@@ -87,11 +88,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addNewBlock(){
         
         let randy:BlockTypes = [
-            BlockTypes.LINE_BLOCK,
-            BlockTypes.TBLOCK,
-            BlockTypes.SBLOCK,
-            BlockTypes.RSBLOCK
-//            ,BlockTypes.LBLOCK
+//            BlockTypes.LINE_BLOCK,
+//            BlockTypes.TBLOCK,
+//            BlockTypes.SBLOCK,
+//            BlockTypes.RSBLOCK,
+//            BlockTypes.LBLOCK,
+//            BlockTypes.RLBLOCK
+            BlockTypes.SQ_BLOCK
         ].randomElement() as! GameScene.BlockTypes
         
         var block:BlockBase?
