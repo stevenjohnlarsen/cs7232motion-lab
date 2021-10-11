@@ -125,8 +125,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let right = SKSpriteNode()
         let top = SKSpriteNode()
         
-        print(size)
-        
         left.size = CGSize(width:size.width*0.1,height:size.height)
         left.position = CGPoint(x:0, y:size.height*0.5)
         
@@ -177,7 +175,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     pBody.pinned = true
                     tetrisBlock?.removeFromParent()
                 }
-                print(pBody.velocity.dy)
                 if pBody.velocity.dy >= 0.0 && !lost {
                     pBody.pinned = true
                     addNewBlock()
@@ -189,10 +186,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: Utility Functions (thanks ray wenderlich!)
     // generate some random numbers for cor graphics floats
     static func random() -> CGFloat {
-        return CGFloat(Float(arc4random()) / Float(Int.max))
+//        let randy = CGFloat(Float(arc4random()) / Float(Int.max))
+        let randy = Float.random(in: 0..<1)
+        print("randy \(randy)")
+        return CGFloat(randy)
     }
     
     static func random(min: CGFloat, max: CGFloat) -> CGFloat {
-        return random() * (max - min) + min
+        let randy = random() * (max - min) + min
+        return randy
     }
 }
