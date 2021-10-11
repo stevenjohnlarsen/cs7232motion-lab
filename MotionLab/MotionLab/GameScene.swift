@@ -67,11 +67,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // update a special watched property for score
         self.score = 0
+        
+        self.addSwapButton()
     }
     
     // MARK: Create Sprites Functions
     let bottom = SKSpriteNode()
-    let scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+    let scoreLabel = SKLabelNode(fontNamed: "Courier-BoldOblique")
     var score:Int = 0 {
         willSet(newValue){
             DispatchQueue.main.async{
@@ -81,9 +83,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addScore(){
-
+        scoreLabel.text = "Score: 1"
+        scoreLabel.fontSize = 20
+        scoreLabel.fontColor = SKColor.white
+        scoreLabel.position = CGPoint(x: frame.midX, y:frame.minY)
+        
+        addChild(scoreLabel)
     }
     
+    // Swap button
+    let swapButton = SKLabelNode(fontNamed: "Courier-BoldOblique")
+    func addSwapButton() {
+        swapButton.text = "Swap Falling"
+        swapButton.fontSize = 20
+        swapButton.fontColor = SKColor.blue
+        swapButton.position = CGPoint(x: frame.midX+70, y: frame.maxY-80)
+        swapButton.name = "SwapFalling"
+        
+        addChild(swapButton)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    }
+    
+    func swapActive() {
+        activePiece?.node.removeFromParent()
+        addNewBlock()
+    }
     
     func addNewBlock(){
         
@@ -125,8 +151,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let right = SKSpriteNode()
         let top = SKSpriteNode()
         
-        print(size)
-        
         left.size = CGSize(width:size.width*0.1,height:size.height)
         left.position = CGPoint(x:0, y:size.height*0.5)
         
@@ -151,6 +175,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: =====Delegate Functions=====
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        for touch in touches {
+            let location = touch.location(in: self)
+            let touchedNode = atPoint(location)
+            if touchedNode.name == "SwapFalling" {
+                swapActive()
+                return
+            }
+        }
         if var piece = activePiece {
             DispatchQueue.main.async {
                 piece.rotate()
@@ -174,11 +207,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if let pBody = t.physicsBody {
                 if activePieceStartingPoint == activePiece!.node.position {
                     lost = true
+                    pBody.pinned = true
+                    tetrisBlock?.removeFromParent()
                 }
-                print(pBody.velocity.dy > 0)
                 if pBody.velocity.dy >= 0.0 && !lost {
                     pBody.pinned = true
+                    score += 1
                     addNewBlock()
+                    
                 }
             }
         }
@@ -187,10 +223,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: Utility Functions (thanks ray wenderlich!)
     // generate some random numbers for cor graphics floats
     static func random() -> CGFloat {
-        return CGFloat(Float(arc4random()) / Float(Int.max))
+//        let randy = CGFloat(Float(arc4random()) / Float(Int.max))
+        let randy = Float.random(in: 0..<1)
+        print("randy \(randy)")
+        return CGFloat(randy)
     }
     
     static func random(min: CGFloat, max: CGFloat) -> CGFloat {
-        return random() * (max - min) + min
+        let randy = random() * (max - min) + min
+        return randy
     }
 }

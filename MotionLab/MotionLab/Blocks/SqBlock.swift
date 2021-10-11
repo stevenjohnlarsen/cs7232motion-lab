@@ -42,11 +42,14 @@ class SqBlock: BlockBase {
         node = SKShapeNode(path: path)
         
         node.lineWidth = 1
-        node.fillColor = .blue
+        node.fillColor = .yellow
         
-        let randNumber = GameScene.random(min: CGFloat(0.1), max: CGFloat(0.9))
         node.physicsBody = SKPhysicsBody(polygonFrom: path)
-        node.position = CGPoint(x: screenSize.width * randNumber, y: screenSize.height * 0.75)
+        
+        let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
+                                          max: CGFloat(7.0*blockWidth.width))
+        
+        node.position = CGPoint(x: randNumber, y: screenSize.height * 0.75)
         setPhysics()
         
     }
