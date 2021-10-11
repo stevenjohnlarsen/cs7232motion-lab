@@ -67,11 +67,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // update a special watched property for score
         self.score = 0
+        
+        self.addSwapButton()
     }
     
     // MARK: Create Sprites Functions
     let bottom = SKSpriteNode()
-    let scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+    let scoreLabel = SKLabelNode(fontNamed: "Courier-BoldOblique")
     var score:Int = 0 {
         willSet(newValue){
             DispatchQueue.main.async{
@@ -81,9 +83,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addScore(){
-
+        scoreLabel.text = "Score: 1"
+        scoreLabel.fontSize = 20
+        scoreLabel.fontColor = SKColor.white
+        scoreLabel.position = CGPoint(x: frame.midX, y:frame.minY)
+        
+        addChild(scoreLabel)
     }
     
+    // Swap button
+    let swapButton = SKLabelNode(fontNamed: "Courier-BoldOblique")
+    func addSwapButton() {
+        swapButton.text = "Swap Falling"
+        swapButton.fontSize = 20
+        swapButton.fontColor = SKColor.blue
+        swapButton.position = CGPoint(x: frame.midX+70, y: frame.maxY-80)
+        swapButton.name = "SwapFalling"
+        
+        addChild(swapButton)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    }
+    
+    func swapActive() {
+        activePiece?.node.removeFromParent()
+        addNewBlock()
+    }
     
     func addNewBlock(){
         
@@ -149,6 +175,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: =====Delegate Functions=====
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        for touch in touches {
+            let location = touch.location(in: self)
+            let touchedNode = atPoint(location)
+            if touchedNode.name == "SwapFalling" {
+                swapActive()
+                return
+            }
+        }
         if var piece = activePiece {
             DispatchQueue.main.async {
                 piece.rotate()
@@ -177,7 +212,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 if pBody.velocity.dy >= 0.0 && !lost {
                     pBody.pinned = true
+                    score += 1
                     addNewBlock()
+                    
                 }
             }
         }
