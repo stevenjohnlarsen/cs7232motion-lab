@@ -15,6 +15,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var numBlockTypes = 1
     var lockedBlocks:[BlockBase] = []
     var lost:Bool = false
+    // You have 1/3 of a second after hitting the bottom to move the piece
+    let framesNotDroppingAllowed = 20
     enum BlockTypes {
         case LINE_BLOCK
         case TBLOCK

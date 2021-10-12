@@ -7,6 +7,7 @@
 
 import UIKit
 import SpriteKit
+import CoreMotion
 
 class GameViewController: UIViewController {
 
@@ -27,9 +28,16 @@ class GameViewController: UIViewController {
 
         scene.scaleMode = .resizeFill
         skView.presentScene(scene)
+        
         // Do any additional setup after loading the view.
     }
     
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portraitUpsideDown
+        }
+    }
 
     /*
     // MARK: - Navigation
