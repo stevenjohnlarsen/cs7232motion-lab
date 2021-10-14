@@ -23,24 +23,36 @@ We used the normal Tetris blocks with the following names and shapes
   | | | |
 </pre>
 * LineBlock
+<pre>
   | | | | |
+</pre>
 * SBlock TOdO (Check if this is the right order)
+<pre>
   | |
   | | |
     | |
+</pre>
 * RSBlock 
+<pre>
     | |
   | | |
   | |
+</pre>
 * LBlock
+<pre>
   | |
   | | | |
+</pre>
 * RLBlock (Revers LBlock)
+<pre>
       | |
   | | | |
 * SquareBlock
+<pre>
   | | |
   | | |
+</pre>
+Each of these use the BlockBase Protocol and extenstion, to allow us to use them properly in the code.
 
-Each of these use the BlockBase Protocol and extenstion, to allow us to use them properly in the code
-
+## Swapping 
+Based off how many steps the user took, they will be allowed to swap a certian number of blocks at any time during that bloks decent, but before it stops falling in the y direction.
