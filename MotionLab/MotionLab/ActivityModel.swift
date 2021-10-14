@@ -13,6 +13,7 @@ class ActivityModel {
     let activityManager = CMMotionActivityManager()
     let pedometer = CMPedometer()
     let motion = CMMotionManager()
+    let defaults = UserDefaults.init()
     
     private var isWalking: Bool = false
     private var isStationary: Bool = false
@@ -65,5 +66,18 @@ class ActivityModel {
             return false
         }
     }
-
+    public func getStepGoal() -> Int {
+        let steps = defaults.integer(forKey: "stepGoal")
+        if steps == 0{
+            defaults.setValue(200, forKey:"stepGoal")
+            return 200
+        }
+        else {
+            return steps
+        }
+    }
+    
+    public func setStepGoal(steps:Int){
+        defaults.setValue(steps, forKey:"stepGoal")
+    }
 }
