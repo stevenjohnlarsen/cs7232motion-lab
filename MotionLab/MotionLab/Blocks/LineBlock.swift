@@ -13,11 +13,21 @@ class LineBlock : BlockBase {
     var node: SKShapeNode
     var screenSize:CGSize
     var angle:Double
+    var rotationDisplace: Dictionary<Double, CGPoint>
     
     init(screenSize:CGSize) {
         
         self.screenSize = screenSize
         self.angle = 0.0
+        self.rotationDisplace = [
+            0.5 : CGPoint(x:2.5,   y:-1.5),
+            1.0 : CGPoint(x:1.5,   y:2.5),
+            1.5 : CGPoint(x:-2.5,  y:1.5),
+            2.0 : CGPoint(x: -1.5, y: -2.5),
+            0.0 : CGPoint(x: -1.5, y: -2.5)
+            
+        ]
+        
         let blockWidth = CGSize(width: screenSize.width*0.1, height: screenSize.width*0.1)
         let path = CGMutablePath()
         
@@ -28,11 +38,14 @@ class LineBlock : BlockBase {
         path.addLine(to: CGPoint(x:0, y:0))
         node = SKShapeNode(path: path)
         node.lineWidth = 1
-        node.fillColor = .blue
+        node.fillColor = .cyan
         
-        let randNumber = GameScene.random(min: CGFloat(0.1), max: CGFloat(0.9))
-        node.position = CGPoint(x: screenSize.width * randNumber, y: screenSize.height * 0.75)
         node.physicsBody = SKPhysicsBody(polygonFrom: path)
+        
+        let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
+                                          max: CGFloat(5.0*blockWidth.width))
+        
+        node.position = CGPoint(x: randNumber, y: screenSize.height * 0.75)
         setPhysics()
     }
 }
