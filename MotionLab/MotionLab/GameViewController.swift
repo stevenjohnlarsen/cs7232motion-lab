@@ -15,7 +15,6 @@ class GameViewController: UIViewController {
     // MARK: UI Outlets
     @IBOutlet weak var testingLabel: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +28,7 @@ class GameViewController: UIViewController {
         scene.scaleMode = .resizeFill
         skView.presentScene(scene)
         
+
         // Do any additional setup after loading the view.
     }
     
