@@ -152,8 +152,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         let randy:BlockTypes = [
-            BlockTypes.LINE_BLOCK,
-//            BlockTypes.TBLOCK,
+//            BlockTypes.LINE_BLOCK,
+            BlockTypes.TBLOCK,
 //            BlockTypes.SBLOCK,
 //            BlockTypes.RSBLOCK,
 //            BlockTypes.LBLOCK,
