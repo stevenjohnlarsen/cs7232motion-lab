@@ -67,9 +67,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // make sides to the screen
         self.addSidesAndTop()
         
-        // add in the interaction sprite
-        
-        
         // add a scorer
         self.addScore()
         
@@ -79,12 +76,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.amountOfSwaps = 10
         //END REMOVE
         self.addSwapButton()
+        
+        self.addNewBlock()
     
         
     }
     
     override func sceneDidLoad() {
-        self.addNewBlock()
+//        self.addNewBlock()
     }
     // MARK: Create Sprites Functions
     let bottom = SKSpriteNode()
@@ -250,7 +249,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if activePieceStartingPoint == activePiece!.node.position {
                     lost = true
                     pBody.pinned = true
-                    tetrisBlock?.removeFromParent()
                 }
                 if pBody.velocity.dy >= 0.0 && !lost {
                     pBody.velocity.dy = 0.0

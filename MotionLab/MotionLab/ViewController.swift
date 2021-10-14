@@ -33,11 +33,6 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         //Get the goal
         self.stepGoal = activity.getStepGoal()
         
-        //DELETE
-        self.todayDaySteps = 201
-        self.yesterDayDaySteps = 210
-        //END DELETE
-        
         //set up the UI elements
         pieChartToday.delegate = self
         pieChartYesterDay.delegate = self
@@ -147,6 +142,19 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     @IBOutlet weak var activityImage: UIImageView!
     @IBOutlet weak var goalInput: UITextField!
     
+    @IBAction func TapGesture(_ sender: Any) {
+        _ = checkTextField()
+        updatePlayButtonText()
+        updateBothCharts()
+        self.goalInput.resignFirstResponder()
+    }
+    
+    
+    
+    @IBAction func didCancelKeyboard(_ sender: Any) {
+        goalInput.resignFirstResponder()
+    }
+    
     //MARK: Private Functions
     private func HandleTodaySteps(pedData:CMPedometerData?, error:Error?){
         if let steps = pedData?.numberOfSteps{
@@ -237,14 +245,18 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let num = Int(textField.text!){
+        return checkTextField()
+    }
+    
+    func checkTextField() -> Bool{
+        if let num = Int(goalInput.text!){
             self.stepGoal = num
             updatePlayButtonText()
-            textField.resignFirstResponder()
+            goalInput.resignFirstResponder()
             return true
         }
         else {
-            textField.resignFirstResponder()
+            goalInput.resignFirstResponder()
             return false
         }
     }
