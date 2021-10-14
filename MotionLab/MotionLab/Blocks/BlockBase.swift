@@ -48,7 +48,7 @@ extension BlockBase {
         let blockWidth = CGSize(width: screenSize.width*0.1, height: screenSize.width*0.1)
         
         
-        node.physicsBody?.node?.zRotation = .pi*angle
+        node.physicsBody?.node?.zRotation = CGFloat(.pi*angle)
         if angle == 2.0 {
             angle = 0.0
         }

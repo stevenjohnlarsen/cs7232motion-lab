@@ -15,6 +15,7 @@ class ActivityModel {
     let motion = CMMotionManager()
     let defaults = UserDefaults.init()
     
+    private var stepsToday: Int = 0
     private var isWalking: Bool = false
     private var isStationary: Bool = false
     private var isRunning: Bool = false
@@ -39,9 +40,16 @@ class ActivityModel {
         let range = GetTodayDateRange()
         if CMPedometer.isStepCountingAvailable(){
             pedometer.queryPedometerData(from: range.1, to: range.0, withHandler: withHandler)
+            pedometer.queryPedometerData(from: range.1, to: range.0, withHandler: HandleTodaySteps)
         }
     }
-    
+    private func HandleTodaySteps(pedData:CMPedometerData?, error:Error?){
+        if let steps = pedData?.numberOfSteps{
+            DispatchQueue.main.async {
+                self.stepsToday = Int(truncating: steps)
+            }
+        }
+    }
     //MARK: Private Fucntions
     public func GetTodayDateRange() -> (Date,Date) {
         let to = Date()
@@ -49,6 +57,9 @@ class ActivityModel {
         return (to,from)
     }
     
+    public func GetTodaySteps() -> Int { 
+        return self.stepsToday
+    }
     public  func GetYesterDayDateRange() -> (Date,Date){
         let to = Calendar.current.startOfDay(for: Date())
         let from = Date(timeInterval: -60*60*25, since: to)

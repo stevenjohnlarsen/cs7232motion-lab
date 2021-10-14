@@ -32,13 +32,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3s-IK-GQi">
-                                <rect key="frame" x="330" y="841" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -47,9 +40,9 @@
                             <constraint firstItem="Mvp-X8-nKJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="27" id="G1t-f8-V6w"/>
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.57971" id="LED-Im-lce"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Mvp-X8-nKJ" secondAttribute="bottom" constant="53" id="MrB-ug-q4F"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ohk-Tf-dHK" secondAttribute="bottom" priority="1" constant="55" id="Riv-zW-Ibs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ohk-Tf-dHK" secondAttribute="bottom" constant="55" id="Riv-zW-Ibs"/>
                             <constraint firstItem="Mvp-X8-nKJ" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.258454" id="fWa-uo-MWb"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ohk-Tf-dHK" secondAttribute="trailing" priority="1" constant="103" id="m8A-ZY-FAM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ohk-Tf-dHK" secondAttribute="trailing" constant="103" id="m8A-ZY-FAM"/>
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="uoG-1v-ClC"/>
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.142857" id="yHt-fW-Na8"/>
                         </constraints>
@@ -59,7 +52,6 @@
                         <outlet property="activityImage" destination="Kxz-Kc-q6o" id="65P-Q0-2Rd"/>
                         <outlet property="goalInput" destination="Mvp-X8-nKJ" id="Xqp-9y-93Y"/>
                         <outlet property="playButton" destination="Ohk-Tf-dHK" id="akj-VU-06I"/>
-                        <outlet property="testlabel" destination="j3s-IK-GQi" id="zgC-9R-Rqx"/>
                         <outlet property="viewOutlet" destination="8bC-Xf-vdC" id="L7N-69-dFn"/>
                     </connections>
                 </viewController>
@@ -86,7 +78,7 @@
         <!--Navigation Controller-->
         <scene sceneID="g7c-xi-q9c">
             <objects>
-                <navigationController hidesBarsOnSwipe="YES" id="s3A-5a-suu" sceneMemberID="viewController">
+                <navigationController id="s3A-5a-suu" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iKz-F6-H7u">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
