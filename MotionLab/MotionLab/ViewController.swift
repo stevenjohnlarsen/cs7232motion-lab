@@ -153,21 +153,21 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     @IBOutlet weak var testlabel: UILabel!
     private func renderChart(chart: PieChartView, frame: CGRect, title:String){
         
-//        let label = UILabel()
-//        label.text = title
-//        label.text = title
-//
-//        chart.frame = frame
-//        view.addSubview(chart)
-//        chart.legend.enabled = false
-//
-//        self.view.addSubview(label)
-//
-//        label.frame = CGRect(x:frame.minX + (frame.width / 4),
-//                             y:frame.minY + (frame.height / 6),
-//                             width: CGFloat(title.count) * 10,
-//                             height:20)
-//
+        let label = UILabel()
+        label.text = title
+        label.text = title
+
+        chart.frame = frame
+        view.addSubview(chart)
+        chart.legend.enabled = false
+
+        self.view.addSubview(label)
+
+        label.frame = CGRect(x:frame.minX + (frame.width / 4),
+                             y:frame.minY + (frame.height / 6),
+                             width: CGFloat(title.count) * 10,
+                             height:20)
+
   
 //        NSLayoutConstraint(item: labeltest!,
 //                           attribute: .width,
