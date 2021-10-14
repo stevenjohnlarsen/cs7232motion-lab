@@ -12,6 +12,9 @@ import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    
+    var amountOfSwaps = 0
+    private let activity: ActivityModel = ActivityModel.init()
     var numBlockTypes = 1
     var lockedBlocks:[BlockBase] = []
     var lost:Bool = false
@@ -52,6 +55,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.white
+        self.amountOfSwaps = activity.GetTodaySteps() - activity.getStepGoal()
+        if self.amountOfSwaps < 0 {
+            self.amountOfSwaps = 0
+        }
+        
         
         // start motion for gravity
         self.startMotionUpdates()
@@ -68,7 +76,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // update a special watched property for score
         self.score = 0
         
+        self.amountOfSwaps = 10
         self.addSwapButton()
+        
+        //REMOVE
+    
     }
     
     // MARK: Create Sprites Functions
@@ -94,12 +106,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Swap button
     let swapButton = SKLabelNode(fontNamed: "Courier-BoldOblique")
     func addSwapButton() {
-        swapButton.text = "Swap Falling"
+        self.swapTextChange()
         swapButton.fontSize = 20
-        swapButton.fontColor = SKColor.blue
         swapButton.position = CGPoint(x: frame.midX+70, y: frame.maxY-80)
         swapButton.name = "SwapFalling"
-        
+        swapButton.physicsBody?.isDynamic = false
         addChild(swapButton)
     }
     
@@ -107,11 +118,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func swapActive() {
-        activePiece?.node.removeFromParent()
-        addNewBlock()
+        if self.amountOfSwaps > 0 {
+            activePiece?.node.removeFromParent()
+            self.amountOfSwaps -= 1
+            addNewBlock(force: true)
+            self.swapTextChange()
+        }
     }
-    
-    func addNewBlock(){
+    func swapTextChange() {
+        if self.amountOfSwaps > 0 {
+            swapButton.text = "Swap (\(self.amountOfSwaps))"
+            swapButton.fontColor = SKColor.blue
+        }
+        else{
+            swapButton.text = "OUT OF SWAPS"
+            swapButton.fontColor = SKColor.red
+        }
+    }
+    func addNewBlock(force:Bool=false){
+        
+        // if the piece is now falling bail and cotinue
+        if let piece = activePiece, let pBody = piece.node.physicsBody {
+            if pBody.velocity.dy < -0.00001 && !force {
+                print("Failed to add vel: \(pBody.velocity.dy)")
+                return
+            }
+            pBody.pinned = true
+        }
+        
+        // The block is not falling, add new block and award a score.
+        if !force {
+            score += 1
+        }
         
         let randy:BlockTypes = [
             BlockTypes.LINE_BLOCK,
@@ -122,7 +160,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             BlockTypes.RLBLOCK,
             BlockTypes.SQ_BLOCK
         ].randomElement() as! GameScene.BlockTypes
-        
         var block:BlockBase?
         switch randy {
         case BlockTypes.LINE_BLOCK:
@@ -144,6 +181,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(block!.node)
         activePiece = block
         activePieceStartingPoint = block!.node.position
+        
+        activePiece?.node.physicsBody?.velocity.dy = -0.001
     }
     
     func addSidesAndTop(){
@@ -211,10 +250,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     tetrisBlock?.removeFromParent()
                 }
                 if pBody.velocity.dy >= 0.0 && !lost {
-                    pBody.pinned = true
-                    score += 1
-                    addNewBlock()
+                    pBody.velocity.dy = 0.0
                     
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        self.addNewBlock()
+                    }
                 }
             }
         }
