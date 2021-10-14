@@ -147,7 +147,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         // The block is not falling, add new block and award a score.
-        score += 1
+        if !force {
+            score += 1
+        }
         
         let randy:BlockTypes = [
             BlockTypes.LINE_BLOCK,
@@ -158,7 +160,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             BlockTypes.RLBLOCK,
             BlockTypes.SQ_BLOCK
         ].randomElement() as! GameScene.BlockTypes
-        
         var block:BlockBase?
         switch randy {
         case BlockTypes.LINE_BLOCK:
