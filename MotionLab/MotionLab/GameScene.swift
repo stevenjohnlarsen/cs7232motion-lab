@@ -68,21 +68,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addSidesAndTop()
         
         // add in the interaction sprite
-        self.addNewBlock()
+        
         
         // add a scorer
         self.addScore()
         
         // update a special watched property for score
         self.score = 0
-        
+        //REMOVE THIS
         self.amountOfSwaps = 10
+        //END REMOVE
         self.addSwapButton()
-        
-        //REMOVE
     
+        
     }
     
+    override func sceneDidLoad() {
+        self.addNewBlock()
+    }
     // MARK: Create Sprites Functions
     let bottom = SKSpriteNode()
     let scoreLabel = SKLabelNode(fontNamed: "Courier-BoldOblique")

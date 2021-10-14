@@ -34,7 +34,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         self.stepGoal = activity.getStepGoal()
         
         //DELETE
-        self.todayDaySteps = 50
+        self.todayDaySteps = 201
         self.yesterDayDaySteps = 210
         //END DELETE
         
@@ -265,6 +265,6 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
                 return false
             }
         }
-        return true	
+        return true
     }
 }
