@@ -122,7 +122,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
             DispatchQueue.main.async {
                 self.updateBothCharts()
             }
-            self.updatePlayButtonText() 
+            self.updatePlayButtonText()
         }
         
     }
@@ -258,5 +258,13 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
                 }
             }
         }
+    }
+    	override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if let steps = self.todayDaySteps{
+            if self.stepGoal > steps{
+                return false
+            }
+        }
+        return true	
     }
 }
