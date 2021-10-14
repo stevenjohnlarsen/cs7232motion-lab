@@ -29,7 +29,6 @@ class RSBlock: BlockBase {
         node = SKShapeNode()
         
         let blockWidth = getBlockWidth(size:screenSize)
-        let width = blockWidth.width
         let path = CGMutablePath()
 
         path.move(to: CGPoint(x:0, y:blockWidth.height))

@@ -155,8 +155,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            BlockTypes.LINE_BLOCK,
 //            BlockTypes.TBLOCK,
 //            BlockTypes.SBLOCK,
-            BlockTypes.RSBLOCK,
-//            BlockTypes.LBLOCK,
+//            BlockTypes.RSBLOCK,
+            BlockTypes.LBLOCK,
 //            BlockTypes.RLBLOCK,
 //            BlockTypes.SQ_BLOCK
         ].randomElement() as! GameScene.BlockTypes
