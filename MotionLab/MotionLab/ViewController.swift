@@ -20,7 +20,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     var button:UIButton = UIButton()
     // MARK: Setup
     override func viewDidLoad() {
-	        super.viewDidLoad()
+        super.viewDidLoad()
         //Load the steps
         self.activity.LoadTodaySteps(withHandler: self.HandleTodaySteps)
         self.activity.LoadYesterDaySteps(withHandler: HandleYesterDaySteps)
@@ -239,9 +239,12 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let num = Int(textField.text!){
             self.stepGoal = num
+            updatePlayButtonText()
+            textField.resignFirstResponder()
             return true
         }
         else {
+            textField.resignFirstResponder()
             return false
         }
     }

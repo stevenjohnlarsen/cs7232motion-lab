@@ -44,7 +44,16 @@ class SqBlock: BlockBase {
         node.lineWidth = 1
         node.fillColor = .yellow
         
-        node.physicsBody = SKPhysicsBody(polygonFrom: path)
+        let d = getDelta()
+        
+        let pathForPhysics = CGMutablePath()
+        
+        pathForPhysics.move(to: CGPoint(x:0 + d, y:0 + d))
+        pathForPhysics.addLine(to: CGPoint(x:blockWidth.width*2 - d, y:0 + d))
+        pathForPhysics.addLine(to: CGPoint(x:blockWidth.width*2 - d, y:blockWidth.width*2 - d))
+        pathForPhysics.addLine(to: CGPoint(x:0 + d, y:blockWidth.width*2 - d))
+        pathForPhysics.addLine(to: CGPoint(x:0 + d, y:0 + d))
+        node.physicsBody = SKPhysicsBody(polygonFrom: pathForPhysics)
         
         let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
                                           max: CGFloat(7.0*blockWidth.width))

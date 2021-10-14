@@ -159,9 +159,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            BlockTypes.TBLOCK,
 //            BlockTypes.SBLOCK,
 //            BlockTypes.RSBLOCK,
-            BlockTypes.LBLOCK,
+//            BlockTypes.LBLOCK,
 //            BlockTypes.RLBLOCK,
-//            BlockTypes.SQ_BLOCK
+            BlockTypes.SQ_BLOCK
         ].randomElement() as! GameScene.BlockTypes
         var block:BlockBase?
         switch randy {
