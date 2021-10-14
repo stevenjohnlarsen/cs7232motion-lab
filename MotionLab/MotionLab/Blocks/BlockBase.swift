@@ -60,6 +60,11 @@ extension BlockBase {
         }
     }
     
+    // Returns the value to move to get the inner bounding path
+    func getDelta() -> Double {
+        return self.getBlockWidth(size: self.screenSize).width * 0.05
+    }
+    
     private func translate(block:CGSize, position:inout CGPoint, x:CGFloat, y:CGFloat){
         position.x = node.position.x + x*block.width
         position.y = node.position.y + y*block.width

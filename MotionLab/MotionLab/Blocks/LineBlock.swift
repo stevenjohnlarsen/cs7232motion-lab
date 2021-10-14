@@ -40,7 +40,16 @@ class LineBlock : BlockBase {
         node.lineWidth = 1
         node.fillColor = .cyan
         
-        node.physicsBody = SKPhysicsBody(polygonFrom: path)
+        
+        let pathForPhysics = CGMutablePath()
+        let d = self.getDelta()
+        
+        pathForPhysics.move(to: CGPoint(x:0 + d, y:0 + d))
+        pathForPhysics.addLine(to: CGPoint(x:4*blockWidth.width - d, y:0 + d))
+        pathForPhysics.addLine(to: CGPoint(x:4*blockWidth.width - d, y:blockWidth.height - d))
+        pathForPhysics.addLine(to: CGPoint(x:0 + d, y:blockWidth.height - d))
+        pathForPhysics.addLine(to: CGPoint(x:0 + d, y:0 - d))
+        node.physicsBody = SKPhysicsBody(polygonFrom: pathForPhysics)
         
         let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
                                           max: CGFloat(5.0*blockWidth.width))

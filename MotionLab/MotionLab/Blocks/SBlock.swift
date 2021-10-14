@@ -37,7 +37,7 @@ class SBlock: BlockBase {
         node = SKShapeNode(path: path)
         
         let pathForPhysics = CGMutablePath()
-        let d = blockWidth.width*0.05
+        let d = getDelta()
         pathForPhysics.move(to: CGPoint(x:0 + d,                        y:0 + d))
         pathForPhysics.addLine(to: CGPoint(x:blockWidth.width - d,      y:0 + d))
         pathForPhysics.addLine(to: CGPoint(x:blockWidth.width - d,      y:blockWidth.height + d))
