@@ -21,7 +21,7 @@ We used the normal Tetris blocks with the following names and shapes
 <pre>
     | |
   | | | |
-  <pre\>
+</pre>
 * LineBlock
   | | | | |
 * SBlock TOdO (Check if this is the right order)
