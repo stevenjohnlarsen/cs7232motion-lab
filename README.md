@@ -17,9 +17,11 @@ To allow it to be easier on the player to slot blocks together, we used 2 CGMuta
 
 ## Blocks
 We used the normal Tetris blocks with the following names and shapes
-* TBlock 
+* TBlock
+<pre>
     | |
   | | | |
+  <\pre>
 * LineBlock
   | | | | |
 * SBlock TOdO (Check if this is the right order)
