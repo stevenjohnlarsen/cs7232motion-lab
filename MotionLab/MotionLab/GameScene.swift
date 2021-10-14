@@ -15,8 +15,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var numBlockTypes = 1
     var lockedBlocks:[BlockBase] = []
     var lost:Bool = false
-    // You have 1/3 of a second after hitting the bottom to move the piece
-    let framesNotDroppingAllowed = 20
     enum BlockTypes {
         case LINE_BLOCK
         case TBLOCK
@@ -101,6 +99,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         swapButton.fontColor = SKColor.blue
         swapButton.position = CGPoint(x: frame.midX+70, y: frame.maxY-80)
         swapButton.name = "SwapFalling"
+        swapButton.physicsBody?.isDynamic = false
         
         addChild(swapButton)
     }
@@ -114,6 +113,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addNewBlock(){
+        
+        // if the piece is now falling bail and cotinue
+        if let piece = activePiece, let pBody = piece.node.physicsBody {
+            if pBody.velocity.dy < -0.00001 {
+                print("Failed to add vel: \(pBody.velocity.dy)")
+                return
+            }
+            pBody.pinned = true
+        }
+        
+        // The block is not falling, add new block and award a score.
+        score += 1
         
         let randy:BlockTypes = [
             BlockTypes.LINE_BLOCK,
@@ -146,6 +157,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(block!.node)
         activePiece = block
         activePieceStartingPoint = block!.node.position
+        
+        activePiece?.node.physicsBody?.velocity.dy = -0.001
     }
     
     func addSidesAndTop(){
@@ -213,10 +226,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     tetrisBlock?.removeFromParent()
                 }
                 if pBody.velocity.dy >= 0.0 && !lost {
-                    pBody.pinned = true
-                    score += 1
-                    addNewBlock()
+                    pBody.velocity.dy = 0.0
                     
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        self.addNewBlock()
+                    }
                 }
             }
         }
