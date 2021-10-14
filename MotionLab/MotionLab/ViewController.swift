@@ -34,7 +34,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         self.stepGoal = activity.getStepGoal()
         
         //DELETE
-        self.todayDaySteps = 50
+        self.todayDaySteps = 201
         self.yesterDayDaySteps = 210
         //END DELETE
         
@@ -45,7 +45,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         
         self.goalInput.text = String(self.stepGoal)
 
-
+        self.updatePlayButtonText()
     }
     
     override func viewDidLayoutSubviews() {
@@ -117,7 +117,15 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     }
     
     //MARK: Properties
-    private var todayDaySteps:Int? = nil
+    private var todayDaySteps:Int? = nil {
+        didSet{
+            DispatchQueue.main.async {
+                self.updateBothCharts()
+            }
+            self.updatePlayButtonText()
+        }
+        
+    }
     private var yesterDayDaySteps:Int? = nil
     private var isWalking: Bool = false
     private var isStationary: Bool = false
@@ -236,5 +244,27 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         else {
             return false
         }
+    }
+    private func updatePlayButtonText(){
+        if let steps = self.todayDaySteps{
+            if self.stepGoal > steps {
+                DispatchQueue.main.async {
+                    self.playButton.setTitle("Not Enough Steps", for: .normal)
+                }
+            }
+            else{
+                DispatchQueue.main.async {
+                    self.playButton.setTitle("Play Game", for: .normal)
+                }
+            }
+        }
+    }
+    	override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if let steps = self.todayDaySteps{
+            if self.stepGoal > steps{
+                return false
+            }
+        }
+        return true
     }
 }
