@@ -8,6 +8,7 @@
 import UIKit
 import CoreMotion
 import Charts
+import simd
 
 class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     
@@ -43,42 +44,78 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         goalInput.delegate = self
         
         self.goalInput.text = String(self.stepGoal)
-        
-        DispatchQueue.main.async {
-            self.button = UIButton()
-            print(self.button.constraints)
-            self.button.setTitle("Click Here", for: .normal)
-            self.button.setTitleColor(UIColor.blue, for: .normal)
-            self.view.addSubview(self.button)
-            
-//            self.button.frame = CGRect(x: 100, y: 100, width: 300, height: 500)
-            self.button.widthAnchor.constraint(equalToConstant: 300).isActive = true
-            self.button.heightAnchor.constraint(equalToConstant: 500).isActive = true
-            self.button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 10).isActive = true
-            self.button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        }
 
 
     }
     
     override func viewDidLayoutSubviews() {
         //Setup the Today graph
-        let frameToday = CGRect(x:0,
-                     y: self.view.frame.size.height / 3.0,
-                     width: self.view.frame.size.width / 2.0,
-                     height: self.view.frame.size.height / 2.0)
-        
-        let frameYesterday = CGRect(x:self.view.frame.size.width / 2.0,
-                     y: self.view.frame.size.height / 3.0,
-                     width: self.view.frame.size.width / 2.0,
-                     height: self.view.frame.size.height / 2.0)
-        
-        self.renderChart(chart:self.pieChartToday, frame:frameToday, title: "Today")
-        self.renderChart(chart: self.pieChartYesterDay, frame: frameYesterday, title: "Yesterday")
-        self.updateBothCharts()
-        
-        
+        setUpTodayChart()
+        setUpYesterdayChart()
     }
+    
+    func setUpTodayChart() {
+        
+        view.addSubview(pieChartToday)
+        pieChartToday.legend.enabled = false
+
+        pieChartToday.translatesAutoresizingMaskIntoConstraints = false
+        // Add constraints for the
+        NSLayoutConstraint.activate([
+            pieChartToday.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -view.frame.width/4),
+            pieChartToday.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            pieChartToday.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            pieChartToday.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
+        ])
+
+        
+        // Set up auto layout constraints with the title label
+        let todayLabel = UILabel()
+        todayLabel.text = "Today"
+        view.addSubview(todayLabel)
+
+        todayLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            todayLabel.centerXAnchor.constraint(equalTo: pieChartToday.centerXAnchor),
+            todayLabel.centerYAnchor.constraint(equalTo: pieChartToday.centerYAnchor),
+            todayLabel.widthAnchor.constraint(equalToConstant: 50),
+            todayLabel.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    func setUpYesterdayChart() {
+        
+        view.addSubview(pieChartYesterDay)
+        pieChartYesterDay.legend.enabled = false
+
+        pieChartYesterDay.translatesAutoresizingMaskIntoConstraints = false
+        // Add constraints for the
+        NSLayoutConstraint.activate([
+            pieChartYesterDay.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: view.frame.width/4),
+            pieChartYesterDay.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            pieChartYesterDay.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            pieChartYesterDay.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
+        ])
+        
+        // Set up auto layout constraints with the title label
+        let yesterdayLabel = UILabel()
+        yesterdayLabel.textAlignment = .center
+        yesterdayLabel.text = "Yesterday"
+        view.addSubview(yesterdayLabel)
+
+        yesterdayLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            yesterdayLabel.centerXAnchor.constraint(equalTo: pieChartYesterDay.centerXAnchor),
+            yesterdayLabel.centerYAnchor.constraint(equalTo: pieChartYesterDay.centerYAnchor),
+            yesterdayLabel.widthAnchor.constraint(equalToConstant: 80),
+            yesterdayLabel.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        self.updateBothCharts()
+    }
+    
     //MARK: Properties
     private var todayDaySteps:Int? = nil
     private var yesterDayDaySteps:Int? = nil
@@ -150,58 +187,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
             }
         }
     }
-    @IBOutlet weak var testlabel: UILabel!
-    private func renderChart(chart: PieChartView, frame: CGRect, title:String){
-        
-        let label = UILabel()
-        label.text = title
-        label.text = title
-
-        chart.frame = frame
-        view.addSubview(chart)
-        chart.legend.enabled = false
-
-        self.view.addSubview(label)
-
-        label.frame = CGRect(x:frame.minX + (frame.width / 4),
-                             y:frame.minY + (frame.height / 6),
-                             width: CGFloat(title.count) * 10,
-                             height:20)
-
-  
-//        NSLayoutConstraint(item: labeltest!,
-//                           attribute: .width,
-//                           relatedBy: .equal,
-//                           toItem: nil,
-//                           attribute: .notAnAttribute,
-//                           multiplier: 1,
-//                           constant: CGFloat(title.count*10)).isActive = true
-//
-//        NSLayoutConstraint(item: labeltest!,
-//                           attribute: .height,
-//                           relatedBy: .equal,
-//                           toItem: nil,
-//                           attribute: .notAnAttribute,
-//                           multiplier: 1,
-//                           constant: 20).isActive = true
-//
-//        NSLayoutConstraint(item: labeltest!,
-//                           attribute: .centerX,
-//                           relatedBy: .equal,
-//                           toItem: view,
-//                           attribute: .centerX,
-//                           multiplier: 1,
-//                           constant: 0).isActive = true
-//
-//        NSLayoutConstraint(item:labeltest!,
-//                           attribute: .centerY,
-//                           relatedBy: .equal,
-//                           toItem: view,
-//                           attribute: .centerY,
-//                           multiplier: 1,
-//                           constant: 0).isActive = true
     
-    }
     private func updateBothCharts(){
         //calculate values of the pie chart
         var stepsDisplayedToday = 0
