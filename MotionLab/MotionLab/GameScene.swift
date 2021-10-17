@@ -13,11 +13,22 @@ import CoreMotion
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
+    init(size: CGSize, steps:Int){
+        super.init(size: size)
+        self.steps = steps
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    
     var amountOfSwaps = 0
     private let activity: ActivityModel = ActivityModel.init()
     var numBlockTypes = 1
     var lockedBlocks:[BlockBase] = []
     var lost:Bool = false
+    var steps:Int = 0
     enum BlockTypes {
         case LINE_BLOCK
         case TBLOCK
@@ -56,7 +67,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.white
-        self.amountOfSwaps = activity.GetTodaySteps() - activity.getStepGoal()
+        
+        self.amountOfSwaps = self.steps / 10
         if self.amountOfSwaps < 0 {
             self.amountOfSwaps = 0
         }
@@ -72,8 +84,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // update a special watched property for score
         self.score = 0
         
-        self.amountOfSwaps = 10
-        
         self.addSwapButton()
         
         self.addNewBlock()
@@ -84,6 +94,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func sceneDidLoad() {
+        print(self.steps)
     }
     // MARK: Create Sprites Functions
     let bottom = SKSpriteNode()

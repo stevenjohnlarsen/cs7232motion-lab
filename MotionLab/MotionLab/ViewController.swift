@@ -242,12 +242,21 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     
     private func updateChartValues(chart:PieChartView, stepsLeft:Int, steps:Int){
         var data = PieChartDataSet()
-        data = PieChartDataSet(entries: [
-            ChartDataEntry(x: 1, y: Double(steps)),
-            ChartDataEntry(x: 2, y: Double(stepsLeft))
-        ])
-        data.colors = [UIColor.init(red: 78/255.0, green: 120/255.0, blue: 85/255.0, alpha: 1), .red]
-        chart.data = PieChartData(dataSet:data)
+        
+        if stepsLeft != 0 {
+            data = PieChartDataSet(entries: [
+                ChartDataEntry(x: 1, y: Double(steps)),
+                ChartDataEntry(x: 2, y: Double(stepsLeft))
+            ])
+            data.colors = [UIColor.init(red: 78/255.0, green: 120/255.0, blue: 85/255.0, alpha: 1), .red]
+            chart.data = PieChartData(dataSet:data)
+        } else {
+            data = PieChartDataSet(entries: [
+                ChartDataEntry(x: 1, y: Double(steps))
+            ])
+            data.colors = [UIColor.init(red: 78/255.0, green: 120/255.0, blue: 85/255.0, alpha: 1), .red]
+            chart.data = PieChartData(dataSet:data)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -280,12 +289,25 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
             }
         }
     }
-    	override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if let steps = self.todayDaySteps{
-            if self.stepGoal > steps{
-                return false
-            }
+    
+    // MARK: - Navigation
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+    if let steps = self.todayDaySteps{
+        if self.stepGoal > steps{
+            return false
         }
-        return true
+    }
+    return true
+    }
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? GameViewController,
+           let steps = self.todayDaySteps {
+            vc.steps = steps
+        }
     }
 }

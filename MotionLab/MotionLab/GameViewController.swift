@@ -15,10 +15,12 @@ class GameViewController: UIViewController {
     // MARK: UI Outlets
     @IBOutlet weak var testingLabel: UILabel!
     
+    var steps = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let scene = GameScene(size: view.bounds.size)
+        let scene = GameScene(size: view.bounds.size, steps:self.steps)
         let skView = view as! SKView // the view in storyboard must be an SKView
 
         skView.showsFPS = true
@@ -28,7 +30,7 @@ class GameViewController: UIViewController {
         scene.scaleMode = .resizeFill
         skView.presentScene(scene)
         
-
+        scene.steps = self.steps
         // Do any additional setup after loading the view.
     }
     
