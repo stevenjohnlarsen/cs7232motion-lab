@@ -68,6 +68,9 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         let todayLabel = UILabel()
         todayLabel.text = "Today"
         view.addSubview(todayLabel)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.TapGesture(_:)))
+        pieChartToday.addGestureRecognizer(tap)
 
         todayLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -98,6 +101,9 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         yesterdayLabel.textAlignment = .center
         yesterdayLabel.text = "Yesterday"
         view.addSubview(yesterdayLabel)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.TapGesture(_:)))
+        pieChartYesterDay.addGestureRecognizer(tap)
 
         yesterdayLabel.translatesAutoresizingMaskIntoConstraints = false
 

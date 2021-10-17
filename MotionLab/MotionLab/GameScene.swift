@@ -53,6 +53,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: View Hierarchy Functions
     // this is like out "View Did Load" function
     override func didMove(to view: SKView) {
+    
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.white
         self.amountOfSwaps = activity.GetTodaySteps() - activity.getStepGoal()
@@ -60,9 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.amountOfSwaps = 0
         }
         
-        
-        // start motion for gravity
-        self.startMotionUpdates()
+        self.removeAllChildren()
         
         // make sides to the screen
         self.addSidesAndTop()
@@ -72,18 +71,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // update a special watched property for score
         self.score = 0
-        //REMOVE THIS
+        
         self.amountOfSwaps = 10
-        //END REMOVE
+        
         self.addSwapButton()
         
         self.addNewBlock()
     
         
+        // start motion for gravity
+        self.startMotionUpdates()
     }
     
     override func sceneDidLoad() {
-//        self.addNewBlock()
     }
     // MARK: Create Sprites Functions
     let bottom = SKSpriteNode()
@@ -142,7 +142,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // if the piece is now falling bail and cotinue
         if let piece = activePiece, let pBody = piece.node.physicsBody {
             if pBody.velocity.dy < -0.00001 && !force {
-                print("Failed to add vel: \(pBody.velocity.dy)")
                 return
             }
             pBody.pinned = true
@@ -151,6 +150,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // The block is not falling, add new block and award a score.
         if !force {
             score += 1
+        }
+        
+        if lost {
+            return
         }
         
         let randy:BlockTypes = [
@@ -249,6 +252,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if activePieceStartingPoint == activePiece!.node.position {
                     lost = true
                     pBody.pinned = true
+                    self.scene?.backgroundColor = .blue
                 }
                 if pBody.velocity.dy >= 0.0 && !lost {
                     pBody.velocity.dy = 0.0
@@ -266,7 +270,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     static func random() -> CGFloat {
 //        let randy = CGFloat(Float(arc4random()) / Float(Int.max))
         let randy = Float.random(in: 0..<1)
-        print("randy \(randy)")
         return CGFloat(randy)
     }
     

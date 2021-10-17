@@ -53,7 +53,7 @@
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.142857" id="yHt-fW-Na8"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="3fg-fu-hWm" appends="YES" id="kpl-sj-KrW"/>
+                            <outletCollection property="gestureRecognizers" destination="Hp3-1q-QoK" appends="YES" id="nRK-ir-uV1"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="BpA-JQ-UQc"/>
@@ -65,9 +65,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="3fg-fu-hWm">
+                <tapGestureRecognizer id="Hp3-1q-QoK">
                     <connections>
-                        <action selector="TapGesture:" destination="BYZ-38-t0r" id="i1q-hb-6JZ"/>
+                        <action selector="TapGesture:" destination="BYZ-38-t0r" id="fJa-eE-zRw"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
