@@ -252,7 +252,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if activePieceStartingPoint == activePiece!.node.position {
                     lost = true
                     pBody.pinned = true
-                    self.scene?.backgroundColor = .blue
+                    showLostScreen()
                 }
                 if pBody.velocity.dy >= 0.0 && !lost {
                     pBody.velocity.dy = 0.0
@@ -263,6 +263,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+    }
+    
+    func showLostScreen() {
+        self.removeAllChildren()
+        let gameOver = SKLabelNode(fontNamed: "Courier-BoldOblique")
+        gameOver.text = "Game Over!!"
+        gameOver.fontColor = .blue
+        self.addChild(gameOver)
+        gameOver.position = CGPoint(x:size.width/2, y:size.height/2)
+        
+        let score = SKLabelNode(fontNamed: "Courier-BoldOblique")
+        score.text = "Your Score: \(self.score)"
+        score.fontColor = .blue
+        self.addChild(score)
+        score.position = CGPoint(x:size.width/2, y:size.height/2 - gameOver.frame.size.height - 5)
     }
     
     // MARK: Utility Functions (thanks ray wenderlich!)
