@@ -20,7 +20,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     var button:UIButton = UIButton()
     // MARK: Setup
     override func viewDidLoad() {
-	        super.viewDidLoad()
+        super.viewDidLoad()
         //Load the steps
         self.activity.LoadTodaySteps(withHandler: self.HandleTodaySteps)
         self.activity.LoadYesterDaySteps(withHandler: HandleYesterDaySteps)
@@ -33,11 +33,6 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         //Get the goal
         self.stepGoal = activity.getStepGoal()
         
-        //DELETE
-        self.todayDaySteps = 50
-        self.yesterDayDaySteps = 210
-        //END DELETE
-        
         //set up the UI elements
         pieChartToday.delegate = self
         pieChartYesterDay.delegate = self
@@ -45,7 +40,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         
         self.goalInput.text = String(self.stepGoal)
 
-
+        self.updatePlayButtonText()
     }
     
     override func viewDidLayoutSubviews() {
@@ -73,6 +68,9 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         let todayLabel = UILabel()
         todayLabel.text = "Today"
         view.addSubview(todayLabel)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.TapGesture(_:)))
+        pieChartToday.addGestureRecognizer(tap)
 
         todayLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -103,6 +101,9 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         yesterdayLabel.textAlignment = .center
         yesterdayLabel.text = "Yesterday"
         view.addSubview(yesterdayLabel)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.TapGesture(_:)))
+        pieChartYesterDay.addGestureRecognizer(tap)
 
         yesterdayLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -117,7 +118,15 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     }
     
     //MARK: Properties
-    private var todayDaySteps:Int? = nil
+    private var todayDaySteps:Int? = nil {
+        didSet{
+            DispatchQueue.main.async {
+                self.updateBothCharts()
+            }
+            self.updatePlayButtonText()
+        }
+        
+    }
     private var yesterDayDaySteps:Int? = nil
     private var isWalking: Bool = false
     private var isStationary: Bool = false
@@ -138,6 +147,19 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     //MARK: Outlets
     @IBOutlet weak var activityImage: UIImageView!
     @IBOutlet weak var goalInput: UITextField!
+    
+    @IBAction func TapGesture(_ sender: Any) {
+        _ = checkTextField()
+        updatePlayButtonText()
+        updateBothCharts()
+        self.goalInput.resignFirstResponder()
+    }
+    
+    
+    
+    @IBAction func didCancelKeyboard(_ sender: Any) {
+        goalInput.resignFirstResponder()
+    }
     
     //MARK: Private Functions
     private func HandleTodaySteps(pedData:CMPedometerData?, error:Error?){
@@ -220,21 +242,72 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     
     private func updateChartValues(chart:PieChartView, stepsLeft:Int, steps:Int){
         var data = PieChartDataSet()
-        data = PieChartDataSet(entries: [
-            ChartDataEntry(x: 1, y: Double(steps)),
-            ChartDataEntry(x: 2, y: Double(stepsLeft))
-        ])
-        data.colors = [UIColor.init(red: 78/255.0, green: 120/255.0, blue: 85/255.0, alpha: 1), .red]
-        chart.data = PieChartData(dataSet:data)
+        
+        if stepsLeft != 0 {
+            data = PieChartDataSet(entries: [
+                ChartDataEntry(x: 1, y: Double(steps)),
+                ChartDataEntry(x: 2, y: Double(stepsLeft))
+            ])
+            data.colors = [UIColor.init(red: 78/255.0, green: 120/255.0, blue: 85/255.0, alpha: 1), .red]
+            chart.data = PieChartData(dataSet:data)
+        } else {
+            data = PieChartDataSet(entries: [
+                ChartDataEntry(x: 1, y: Double(steps))
+            ])
+            data.colors = [UIColor.init(red: 78/255.0, green: 120/255.0, blue: 85/255.0, alpha: 1), .red]
+            chart.data = PieChartData(dataSet:data)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let num = Int(textField.text!){
+        return checkTextField()
+    }
+    
+    func checkTextField() -> Bool{
+        if let num = Int(goalInput.text!){
             self.stepGoal = num
+            updatePlayButtonText()
+            goalInput.resignFirstResponder()
             return true
         }
         else {
+            goalInput.resignFirstResponder()
             return false
+        }
+    }
+    private func updatePlayButtonText(){
+        if let steps = self.todayDaySteps{
+            if self.stepGoal > steps {
+                DispatchQueue.main.async {
+                    self.playButton.setTitle("Not Enough Steps", for: .normal)
+                }
+            }
+            else{
+                DispatchQueue.main.async {
+                    self.playButton.setTitle("Play Game", for: .normal)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Navigation
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+    if let steps = self.todayDaySteps{
+        if self.stepGoal > steps{
+            return false
+        }
+    }
+    return true
+    }
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? GameViewController,
+           let steps = self.todayDaySteps {
+            vc.steps = steps
         }
     }
 }

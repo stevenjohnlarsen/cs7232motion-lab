@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kxz-Kc-q6o">
-                                <rect key="frame" x="87" y="127" width="240" height="128"/>
+                                <rect key="frame" x="145" y="127" width="124" height="128"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ohk-Tf-dHK">
                                 <rect key="frame" x="238" y="777" width="73" height="30"/>
@@ -28,24 +28,33 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mvp-X8-nKJ">
-                                <rect key="frame" x="27" y="775" width="107" height="34"/>
+                                <rect key="frame" x="20" y="174" width="107" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="107" id="Snh-vf-VL3"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="didCancelKeyboard:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="Nte-lS-vE7"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="39" id="2Lc-RU-w5j"/>
-                            <constraint firstItem="Mvp-X8-nKJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="27" id="G1t-f8-V6w"/>
-                            <constraint firstItem="Kxz-Kc-q6o" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.57971" id="LED-Im-lce"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Mvp-X8-nKJ" secondAttribute="bottom" constant="53" id="MrB-ug-q4F"/>
+                            <constraint firstItem="Kxz-Kc-q6o" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" id="LED-Im-lce"/>
+                            <constraint firstItem="Kxz-Kc-q6o" firstAttribute="leading" secondItem="Mvp-X8-nKJ" secondAttribute="trailing" constant="18" id="NGI-z8-Fij"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ohk-Tf-dHK" secondAttribute="bottom" constant="55" id="Riv-zW-Ibs"/>
-                            <constraint firstItem="Mvp-X8-nKJ" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.258454" id="fWa-uo-MWb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ohk-Tf-dHK" secondAttribute="trailing" constant="103" id="m8A-ZY-FAM"/>
+                            <constraint firstItem="Mvp-X8-nKJ" firstAttribute="centerY" secondItem="Kxz-Kc-q6o" secondAttribute="centerY" id="u65-iQ-2NH"/>
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="uoG-1v-ClC"/>
                             <constraint firstItem="Kxz-Kc-q6o" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.142857" id="yHt-fW-Na8"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Hp3-1q-QoK" appends="YES" id="nRK-ir-uV1"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="BpA-JQ-UQc"/>
                     <connections>
@@ -56,6 +65,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Hp3-1q-QoK">
+                    <connections>
+                        <action selector="TapGesture:" destination="BYZ-38-t0r" id="fJa-eE-zRw"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="124.6376811594203" y="55.580357142857139"/>
         </scene>

@@ -29,7 +29,6 @@ class RSBlock: BlockBase {
         node = SKShapeNode()
         
         let blockWidth = getBlockWidth(size:screenSize)
-        let width = blockWidth.width
         let path = CGMutablePath()
 
         path.move(to: CGPoint(x:0, y:blockWidth.height))
@@ -48,7 +47,21 @@ class RSBlock: BlockBase {
         node.lineWidth = 1
         node.fillColor = .blue
         
-        node.physicsBody = SKPhysicsBody(polygonFrom: path)
+        let pathPhysics = CGMutablePath()
+        let d = self.getDelta()
+        
+        pathPhysics.move(to: CGPoint(x:0 + d, y:blockWidth.height + d))
+        pathPhysics.addLine(to: CGPoint(x:blockWidth.width + d, y:blockWidth.height + d))
+        pathPhysics.addLine(to: CGPoint(x:blockWidth.width + d, y:0 + d))
+        pathPhysics.addLine(to: CGPoint(x:blockWidth.width*2 - d, y:0 + d))
+        pathPhysics.addLine(to: CGPoint(x:blockWidth.width*2 - d, y:blockWidth.height*2 - d))
+        pathPhysics.addLine(to: CGPoint(x:blockWidth.width - d , y:blockWidth.height*2 - d))
+        pathPhysics.addLine(to: CGPoint(x:blockWidth.width - d, y:blockWidth.height*3 - d))
+        pathPhysics.addLine(to: CGPoint(x:0 + d, y:blockWidth.height*3 - d))
+        pathPhysics.addLine(to: CGPoint(x:0 + d, y:blockWidth.height + d))
+        
+        node.physicsBody = SKPhysicsBody(polygonFrom: pathPhysics)
+        
         let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
                                           max: CGFloat(7.0*blockWidth.width))
         

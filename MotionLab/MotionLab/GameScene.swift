@@ -13,11 +13,22 @@ import CoreMotion
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
+    init(size: CGSize, steps:Int){
+        super.init(size: size)
+        self.steps = steps
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    
     var amountOfSwaps = 0
     private let activity: ActivityModel = ActivityModel.init()
     var numBlockTypes = 1
     var lockedBlocks:[BlockBase] = []
     var lost:Bool = false
+    var steps:Int = 0
     enum BlockTypes {
         case LINE_BLOCK
         case TBLOCK
@@ -53,22 +64,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: View Hierarchy Functions
     // this is like out "View Did Load" function
     override func didMove(to view: SKView) {
+    
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.white
-        self.amountOfSwaps = activity.GetTodaySteps() - activity.getStepGoal()
+        
+        self.amountOfSwaps = self.steps / 10
         if self.amountOfSwaps < 0 {
             self.amountOfSwaps = 0
         }
         
-        
-        // start motion for gravity
-        self.startMotionUpdates()
+        self.removeAllChildren()
         
         // make sides to the screen
         self.addSidesAndTop()
-        
-        // add in the interaction sprite
-        self.addNewBlock()
         
         // add a scorer
         self.addScore()
@@ -76,13 +84,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // update a special watched property for score
         self.score = 0
         
-        self.amountOfSwaps = 10
         self.addSwapButton()
         
-        //REMOVE
+        self.addNewBlock()
     
+        
+        // start motion for gravity
+        self.startMotionUpdates()
     }
     
+    override func sceneDidLoad() {
+        print(self.steps)
+    }
     // MARK: Create Sprites Functions
     let bottom = SKSpriteNode()
     let scoreLabel = SKLabelNode(fontNamed: "Courier-BoldOblique")
@@ -140,7 +153,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // if the piece is now falling bail and cotinue
         if let piece = activePiece, let pBody = piece.node.physicsBody {
             if pBody.velocity.dy < -0.00001 && !force {
-                print("Failed to add vel: \(pBody.velocity.dy)")
                 return
             }
             pBody.pinned = true
@@ -149,6 +161,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // The block is not falling, add new block and award a score.
         if !force {
             score += 1
+        }
+        
+        if lost {
+            return
         }
         
         let randy:BlockTypes = [
@@ -247,7 +263,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if activePieceStartingPoint == activePiece!.node.position {
                     lost = true
                     pBody.pinned = true
-                    tetrisBlock?.removeFromParent()
+                    showLostScreen()
                 }
                 if pBody.velocity.dy >= 0.0 && !lost {
                     pBody.velocity.dy = 0.0
@@ -260,12 +276,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func showLostScreen() {
+        self.removeAllChildren()
+        let gameOver = SKLabelNode(fontNamed: "Courier-BoldOblique")
+        gameOver.text = "Game Over!!"
+        gameOver.fontColor = .blue
+        self.addChild(gameOver)
+        gameOver.position = CGPoint(x:size.width/2, y:size.height/2)
+        
+        let score = SKLabelNode(fontNamed: "Courier-BoldOblique")
+        score.text = "Your Score: \(self.score)"
+        score.fontColor = .blue
+        self.addChild(score)
+        score.position = CGPoint(x:size.width/2, y:size.height/2 - gameOver.frame.size.height - 5)
+    }
+    
     // MARK: Utility Functions (thanks ray wenderlich!)
     // generate some random numbers for cor graphics floats
     static func random() -> CGFloat {
 //        let randy = CGFloat(Float(arc4random()) / Float(Int.max))
         let randy = Float.random(in: 0..<1)
-        print("randy \(randy)")
         return CGFloat(randy)
     }
     

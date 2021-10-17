@@ -46,7 +46,22 @@ class TBlock: BlockBase {
         node.lineWidth = 1
         node.fillColor = .purple
         
-        node.physicsBody = SKPhysicsBody(polygonFrom: path)
+        let pathForPhysics = CGMutablePath()
+        let d = getDelta()
+        
+        pathForPhysics.move(to: CGPoint(x:0 + d, y:0 + d))
+        pathForPhysics.addLine(to: CGPoint(x:blockWidth.width - d, y:0 + d))
+        pathForPhysics.addLine(to: CGPoint(x:blockWidth.width - d,y:blockWidth.height + d))
+        pathForPhysics.addLine(to: CGPoint(x:blockWidth.width*2 - d,y:blockWidth.height + d))
+        pathForPhysics.addLine(to: CGPoint(x:blockWidth.width*2 - d,y:blockWidth.height*2 - d))
+        pathForPhysics.addLine(to: CGPoint(x:blockWidth.width - d, y:blockWidth.height*2 - d))
+        pathForPhysics.addLine(to: CGPoint(x:blockWidth.width - d,y:blockWidth.height*3 - d))
+        pathForPhysics.addLine(to: CGPoint(x:0 + d,y:blockWidth.height*3 - d))
+        pathForPhysics.addLine(to: CGPoint(x:0 + d, y:0 + d))
+        node.physicsBody = SKPhysicsBody(polygonFrom: pathForPhysics)
+        
+        
+        
         let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
                                           max: CGFloat(7.0*blockWidth.width))
         node.position = CGPoint(x: randNumber, y: screenSize.height * 0.75)
