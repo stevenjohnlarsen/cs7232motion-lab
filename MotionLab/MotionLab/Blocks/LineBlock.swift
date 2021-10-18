@@ -49,7 +49,9 @@ class LineBlock : BlockBase {
         pathForPhysics.addLine(to: CGPoint(x:4*blockWidth.width - d, y:blockWidth.height - d))
         pathForPhysics.addLine(to: CGPoint(x:0 + d, y:blockWidth.height - d))
         pathForPhysics.addLine(to: CGPoint(x:0 + d, y:0 - d))
+        
         node.physicsBody = SKPhysicsBody(polygonFrom: pathForPhysics)
+        node.physicsBody?.friction = 0
         
         let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
                                           max: CGFloat(5.0*blockWidth.width))

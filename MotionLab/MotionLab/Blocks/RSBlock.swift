@@ -45,7 +45,7 @@ class RSBlock: BlockBase {
         node = SKShapeNode(path: path)
         
         node.lineWidth = 1
-        node.fillColor = .blue
+        node.fillColor = .red
         
         let pathPhysics = CGMutablePath()
         let d = self.getDelta()
@@ -61,6 +61,7 @@ class RSBlock: BlockBase {
         pathPhysics.addLine(to: CGPoint(x:0 + d, y:blockWidth.height + d))
         
         node.physicsBody = SKPhysicsBody(polygonFrom: pathPhysics)
+        node.physicsBody?.friction = 0
         
         let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
                                           max: CGFloat(7.0*blockWidth.width))
