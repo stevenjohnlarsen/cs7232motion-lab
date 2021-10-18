@@ -56,7 +56,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // make gravity in the game als the simulator gravity\
         
         if let gravity = motionData?.gravity {
-            self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: -1.0)
+            self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x*2), dy: -0.5)
 //            self.physicsWorld.gravity = CGVector(dx: CGFloat(0.0), dy: 0.0)
         }
     }
@@ -208,6 +208,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         left.size = CGSize(width:size.width*0.1,height:size.height)
         left.position = CGPoint(x:0, y:size.height*0.5)
+        left.physicsBody?.friction = 0
         
         right.size = CGSize(width:size.width*0.1,height:size.height)
         right.position = CGPoint(x:size.width, y:size.height*0.5)

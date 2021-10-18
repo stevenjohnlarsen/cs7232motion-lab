@@ -32,8 +32,7 @@ class LBlock: BlockBase {
         let path = CGMutablePath()
 
         path.move(to: CGPoint(x:0, y:0))
-        
-        path.move(to: CGPoint(x:blockWidth.width*2, y:0))
+        path.addLine(to: CGPoint(x:blockWidth.width*2, y:0))
         path.addLine(to: CGPoint(x:blockWidth.width*2, y:blockWidth.height))
         path.addLine(to: CGPoint(x:blockWidth.width, y:blockWidth.height))
         path.addLine(to: CGPoint(x:blockWidth.width, y:blockWidth.height*3))
@@ -43,7 +42,7 @@ class LBlock: BlockBase {
         node = SKShapeNode(path: path)
         
         node.lineWidth = 1
-        node.fillColor = .orange
+        node.fillColor = .blue
         
         let d = self.getDelta()
         let pathForPhysics = CGMutablePath()
@@ -57,6 +56,7 @@ class LBlock: BlockBase {
         pathForPhysics.addLine(to: CGPoint(x:0 + d, y:0 + d))
         
         node.physicsBody = SKPhysicsBody(polygonFrom: pathForPhysics)
+        node.physicsBody?.friction = 0
         
         let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
                                           max: CGFloat(7.0*blockWidth.width))

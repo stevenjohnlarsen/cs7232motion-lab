@@ -34,7 +34,7 @@ class RLBlock: BlockBase {
         let path = CGMutablePath()
         
         path.move(to: CGPoint(x:0, y:0))
-        path.move(to: CGPoint(x:blockWidth.width*2, y:0))
+        path.addLine (to: CGPoint(x:blockWidth.width*2, y:0))
         path.addLine(to: CGPoint(x:blockWidth.width*2, y:blockWidth.height*3))
         path.addLine(to: CGPoint(x:blockWidth.width, y:blockWidth.height*3))
         path.addLine(to: CGPoint(x:blockWidth.width, y:blockWidth.height))
@@ -47,7 +47,7 @@ class RLBlock: BlockBase {
         let d = getDelta()
         
         pathForPhysics.move(to: CGPoint(x:0 + d, y:0 + d))
-        pathForPhysics.move(to: CGPoint(x:blockWidth.width*2 - d, y:0 + d))
+        pathForPhysics.addLine(to: CGPoint(x:blockWidth.width*2 - d, y:0 + d))
         pathForPhysics.addLine(to: CGPoint(x:blockWidth.width*2 - d, y:blockWidth.height*3 - d))
         pathForPhysics.addLine(to: CGPoint(x:blockWidth.width + d, y:blockWidth.height*3 - d))
         pathForPhysics.addLine(to: CGPoint(x:blockWidth.width + d, y:blockWidth.height - d))
@@ -55,9 +55,10 @@ class RLBlock: BlockBase {
         pathForPhysics.addLine(to: CGPoint(x:0 + d, y:0 + d))
         
         node.lineWidth = 1
-        node.fillColor = .blue
+        node.fillColor = .orange
         
         node.physicsBody = SKPhysicsBody(polygonFrom: pathForPhysics)
+        node.physicsBody?.friction = 0
         let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
                                           max: CGFloat(7.0*blockWidth.width))
         

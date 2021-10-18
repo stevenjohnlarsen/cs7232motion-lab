@@ -52,6 +52,7 @@ class SBlock: BlockBase {
         node.fillColor = .green
         
         node.physicsBody = SKPhysicsBody(polygonFrom: pathForPhysics)
+        node.physicsBody?.friction = 0
         
         let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
                                           max: CGFloat(7.0*blockWidth.width))

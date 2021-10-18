@@ -17,7 +17,6 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     @IBOutlet var viewOutlet: UIView!
     @IBOutlet weak var playButton: UIButton!
     
-    var button:UIButton = UIButton()
     // MARK: Setup
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,9 +137,16 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     private var ableToMonitor: Bool = false
     private var stepGoal = 200 {
         didSet{
+            if stepGoal < 1 {
+                stepGoal = 1
+                DispatchQueue.main.async {
+                    self.goalInput.text = "\(self.stepGoal)"
+                }
+            }
             DispatchQueue.main.async {
                 self.updateBothCharts()
             }
+            activity.setStepGoal(steps: stepGoal)
         }
     }
     
@@ -218,7 +224,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         var stepsLeftYesterday = self.stepGoal
         if let todaySteps = self.todayDaySteps{
             if todaySteps > self.stepGoal {
-                stepsDisplayedToday = stepGoal
+                stepsDisplayedToday = todaySteps
                 stepsLeftToday = 0
             }
             else{
@@ -228,7 +234,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         }
         if let yesterdaySteps = self.yesterDayDaySteps{
             if yesterdaySteps > self.stepGoal {
-                stepsDisplayedYesterday = stepGoal
+                stepsDisplayedYesterday = yesterdaySteps
                 stepsLeftYesterday = 0
             }
             else{
@@ -276,7 +282,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         }
     }
     private func updatePlayButtonText(){
-        if let steps = self.todayDaySteps{
+        if let steps = self.yesterDayDaySteps{
             if self.stepGoal > steps {
                 DispatchQueue.main.async {
                     self.playButton.setTitle("Not Enough Steps", for: .normal)
@@ -293,7 +299,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
     // MARK: - Navigation
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-    if let steps = self.todayDaySteps{
+    if let steps = self.yesterDayDaySteps {
         if self.stepGoal > steps{
             return false
         }
@@ -306,7 +312,7 @@ class ViewController: UIViewController, ChartViewDelegate, UITextFieldDelegate{
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if let vc = segue.destination as? GameViewController,
-           let steps = self.todayDaySteps {
+           let steps = self.yesterDayDaySteps {
             vc.steps = steps
         }
     }

@@ -58,7 +58,9 @@ class TBlock: BlockBase {
         pathForPhysics.addLine(to: CGPoint(x:blockWidth.width - d,y:blockWidth.height*3 - d))
         pathForPhysics.addLine(to: CGPoint(x:0 + d,y:blockWidth.height*3 - d))
         pathForPhysics.addLine(to: CGPoint(x:0 + d, y:0 + d))
+        
         node.physicsBody = SKPhysicsBody(polygonFrom: pathForPhysics)
+        node.physicsBody?.friction = 0
         
         
         
