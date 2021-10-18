@@ -1,7 +1,16 @@
-# Activity Tracker and Game
+	# Activity Tracker and Game
 
 # Activity Tracker:
+## External Tools
+### Charts Cocoa Pods
+We used this tool https://cocoapods.org/pods/Charts to create our charts. If you are using a M1 chip you will need to do the following:
+* Launch terminal with rosetta
+* Run this command: arch -x86_64 sudo gem install ffi
+* Verify this line exists in "pod 'Charts'"
+* Then run "pod install" in the rosetta terminal
 
+## Chart Functionality
+If the step goal for the chart is not met, the chart will be loaded with two datasets, Steps left in the goal (red) and steps taken (green). If the step goal is met the chart will be loaded with one dataset, steps taken (green)
 
 # The Game
 The game will randomly drop "Blocks" and the player must rotate the phone left and right to move the block along the x axis. The Y movment will be constant. The goal is to fit as many blocks on the screen as possible before you loose.
@@ -47,6 +56,7 @@ We used the normal Tetris blocks with the following names and shapes
 <pre>
       | |
   | | | |
+</pre>
 * SquareBlock
 <pre>
   | | |
