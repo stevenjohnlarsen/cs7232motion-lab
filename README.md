@@ -1,6 +1,7 @@
-	# Activity Tracker and Game
+# Activity Tracker and Game
 
 # Activity Tracker:
+* The Goal will default to 200 the first time the app is loaded, but will write to the user defaults when changed. If for some reason the user defaults are missing after, it will default back to 200.
 ## External Tools
 ### Charts Cocoa Pods
 We used this tool https://cocoapods.org/pods/Charts to create our charts. If you are using a M1 chip you will need to do the following:
