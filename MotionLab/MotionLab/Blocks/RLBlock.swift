@@ -42,6 +42,8 @@ class RLBlock: BlockBase {
         path.addLine(to: CGPoint(x:0, y:0))
         node = SKShapeNode(path: path)
         
+        node.lineWidth = 1
+        node.fillColor = .orange
         
         let pathForPhysics = CGMutablePath()
         let d = getDelta()
@@ -51,14 +53,12 @@ class RLBlock: BlockBase {
         pathForPhysics.addLine(to: CGPoint(x:blockWidth.width*2 - d, y:blockWidth.height*3 - d))
         pathForPhysics.addLine(to: CGPoint(x:blockWidth.width + d, y:blockWidth.height*3 - d))
         pathForPhysics.addLine(to: CGPoint(x:blockWidth.width + d, y:blockWidth.height - d))
-        pathForPhysics.addLine(to: CGPoint(x:0 + d, y:blockWidth.height + d))
+        pathForPhysics.addLine(to: CGPoint(x:0 + d, y:blockWidth.height - d))
         pathForPhysics.addLine(to: CGPoint(x:0 + d, y:0 + d))
-        
-        node.lineWidth = 1
-        node.fillColor = .orange
         
         node.physicsBody = SKPhysicsBody(polygonFrom: pathForPhysics)
         node.physicsBody?.friction = 0
+        
         let randNumber = GameScene.random(min: CGFloat(1.0*blockWidth.width),
                                           max: CGFloat(7.0*blockWidth.width))
         
